@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Order = (props) => {
+const Order = props => {
   return (
     <div>
       <h1>Hello! i'm Order page</h1>
