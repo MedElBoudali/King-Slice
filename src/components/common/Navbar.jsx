@@ -16,6 +16,7 @@ const NavStyleLink = styled(Link)`
   --rotate: 0deg;
   transform: rotate(var(--rotate));
   font-size: 3rem;
+  margin-top: -6rem;
 
   &:nth-child(1),
   &:nth-child(4) {
@@ -25,18 +26,19 @@ const NavStyleLink = styled(Link)`
   &:nth-child(5) {
     --rotate: -6deg;
   }
-  &:not(:last-child) {
-    /* margin-right: 10px; */
-  }
 
-  &:hover {
+  &:hover:not(:nth-child(3)) {
     color: var(--red);
     --rotate: -1deg;
+  }
+
+  &[aria-current="page"] {
+    color: var(--red);
   }
 `;
 
 const LogoStyle = css`
-  /* transform: translateY(-25%); */
+  transform: translateY(-25%);
 `;
 
 const Navbar = () => (

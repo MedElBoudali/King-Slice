@@ -98,7 +98,7 @@ export default function Logo({ logoStyle }) {
   return (
     <LogoStyles logoStyle={logoStyle}>
       <div>
-        <Est>EST 1994</Est>
+        <Est>EST 1991</Est>
         <h1>
           <LettersWrapper>
             <KLetter>k</KLetter>
