@@ -32,9 +32,10 @@ const NavStyleLink = styled(Link)`
     --rotate: -1deg;
   }
 
-  &[aria-current="page"] {
+  /* Style current page link */
+  /* &[aria-current="page"] {
     color: var(--red);
-  }
+  } */
 `;
 
 const LogoStyle = css`

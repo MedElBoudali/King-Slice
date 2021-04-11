@@ -32,6 +32,7 @@ module.exports = {
     siteUrl: "https://gatsby.pizza",
     author: `@KingSlices`,
   },
+  flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     `gatsby-plugin-react-helmet`,
     "gatsby-plugin-styled-components",
