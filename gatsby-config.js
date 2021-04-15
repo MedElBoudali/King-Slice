@@ -1,5 +1,6 @@
 // import dotenv from "dotenv";
 // dotenv.config({ path: ".env" });
+
 // module.exports = {
 //   pathPrefix: "/pizza",
 //   siteMetadata: {
@@ -25,17 +26,31 @@
 //   ],
 // };
 
+require("dotenv").config({
+  path: `.env`,
+});
+
+console.log(process.env.SANITY_TOKEN);
+
 module.exports = {
   siteMetadata: {
-    title: `King Slices`,
-    description: `The best pizza place in Hamilton!`,
+    title: "King Slices",
     siteUrl: "https://gatsby.pizza",
-    author: `@KingSlices`,
+    description: "The best pizza place in Hamilton!",
+    author: "@moelboudali",
   },
-  flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     `gatsby-plugin-react-helmet`,
     "gatsby-plugin-styled-components",
     `gatsby-plugin-image`,
+    {
+      resolve: `gatsby-source-sanity`,
+      options: {
+        projectId: `82y8hbpf`,
+        dataset: `production`,
+        watchMode: true,
+        token: process.env.SANITY_TOKEN,
+      },
+    },
   ],
 };
