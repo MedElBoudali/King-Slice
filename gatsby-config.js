@@ -30,8 +30,6 @@ require("dotenv").config({
   path: `.env`,
 });
 
-console.log(process.env.SANITY_TOKEN);
-
 module.exports = {
   siteMetadata: {
     title: "King Slices",
