@@ -37,6 +37,7 @@ module.exports = {
     description: "The best pizza place in Hamilton!",
     author: "@moelboudali",
   },
+  flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     `gatsby-plugin-react-helmet`,
     "gatsby-plugin-styled-components",
