@@ -1,16 +1,19 @@
 import React from "react";
+import { Link } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import PropTypes from "prop-types";
 
 const Pizza = ({ pizza }) => {
   return (
     <div>
-      Pizza Name: {pizza.name}
+      <Link to={`/pizza/${pizza.slug.current}`}>
+        <h2>
+          <span className="mark">{pizza.name}</span>
+        </h2>
+        <p>{pizza.toppings.map(topping => topping.name).join(", ")}</p>
+      </Link>
       {pizza.image && (
-        <img
-          src={pizza.image.asset.gatsbyImageData.images.fallback.src}
-          srcset={pizza.image.asset.gatsbyImageData.images.fallback.srcSet}
-          alt={pizza.name}
-        />
+        <GatsbyImage image={getImage(pizza.image.asset)} alt={pizza.name} />
       )}
     </div>
   );

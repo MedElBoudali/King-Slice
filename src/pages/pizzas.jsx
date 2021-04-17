@@ -29,7 +29,7 @@ export const query = graphql`
         }
         image {
           asset {
-            gatsbyImageData(width: 400)
+            gatsbyImageData(width: 400, placeholder: BLURRED)
           }
         }
       }
