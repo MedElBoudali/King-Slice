@@ -28,6 +28,10 @@ const LayoutWrraper = styled.div`
   background: white;
 `;
 
+const LayoutMain = styled.main`
+  padding: 0 2rem;
+`;
+
 const Layout = ({ children }) => {
   return (
     <>
@@ -38,7 +42,7 @@ const Layout = ({ children }) => {
           <header>
             <Navbar />
           </header>
-          <main>{children}</main>
+          <LayoutMain>{children}</LayoutMain>
           <Footer />
         </LayoutWrraper>
       </SiteBorderStyle>

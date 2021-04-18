@@ -4,7 +4,6 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const PizzaListWrapper = styled.div`
-  padding: 0 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 4rem;

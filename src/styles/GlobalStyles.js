@@ -43,10 +43,9 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-  /* .gatsby-image-wrapper img[src*=base64\\,] {
-    image-rendering: -moz-crisp-edges;
+  .gatsby-image-wrapper img[src*=base64] {
     image-rendering: pixelated;
-  } */
+  }
 
   /* Scrollbar Styles */
   body::-webkit-scrollbar {
