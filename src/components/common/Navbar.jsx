@@ -7,7 +7,7 @@ const NavStyle = styled.nav`
   display: grid;
   grid-template-columns: 1fr 1fr auto 1fr 1fr;
   grid-gap: 2rem;
-  margin-bottom: 3rem;
+  /* margin-bottom: 3rem; */
   align-items: center;
   text-align: center;
 `;

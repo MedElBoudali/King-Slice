@@ -1,16 +1,39 @@
 import React from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { graphql } from "gatsby";
+import styled from "styled-components";
 
-const SinglePizzaPage = props => {
-  console.log(props);
+const SinglePizzaPageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 500px;
+    margin-right: 3rem;
+    border-radius: 10px;
+  }
+  ul {
+    margin-top: 3rem;
+  }
+`;
+
+const SinglePizzaPage = ({
+  data: {
+    sanityPizza: { name, image, toppings },
+  },
+}) => {
   return (
-    <div>
-      <GatsbyImage
-        image={getImage(props.data.sanityPizza.image.asset)}
-        alt={props.data.sanityPizza.name}
-      />
-    </div>
+    <SinglePizzaPageWrapper>
+      <GatsbyImage image={getImage(image.asset)} alt={name} />
+      <div>
+        <h2 className="mark">{name}</h2>
+        <ul>
+          {toppings.map(({ id, name }) => (
+            <li key={id}>{name}</li>
+          ))}
+        </ul>
+      </div>
+    </SinglePizzaPageWrapper>
   );
 };
 
