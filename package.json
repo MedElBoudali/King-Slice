@@ -13,6 +13,7 @@
     "gatsby-plugin-styled-components": "^4.2.0",
     "gatsby-source-sanity": "^7.0.4",
     "gatsby-transformer-sharp": "^3.3.0",
+    "isomorphic-fetch": "^3.0.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
