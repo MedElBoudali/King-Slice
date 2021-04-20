@@ -20,11 +20,11 @@ const ToppingsFilterWrapper = styled.div`
       background: white;
       padding: 2px 5px;
     }
-    .active {
-      background: var(--yellow);
-    }
     &:hover {
       background: var(--yellow);
+    }
+    &[aria-current="page"] {
+      background-color: var(--yellow);
     }
   }
 `;
@@ -52,7 +52,7 @@ const countPizzasInToppings = pizzas => {
   return sortingToppings;
 };
 
-const ToppingsFilter = props => {
+const ToppingsFilter = () => {
   const { allSanityTopping, allSanityPizza } = useStaticQuery(graphql`
     query {
       allSanityTopping {
@@ -75,6 +75,10 @@ const ToppingsFilter = props => {
 
   return (
     <ToppingsFilterWrapper>
+      <Link to="/pizzas">
+        <span className="name">ALL</span>
+        <span className="count">{allSanityTopping.nodes.length}</span>
+      </Link>
       {countPizzasInToppings(allSanityPizza.nodes).map(topping => (
         <Link to={`/topping/${topping.name}`} key={topping.id}>
           <span className="name">{topping.name}</span>

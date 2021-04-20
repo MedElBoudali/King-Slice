@@ -1,7 +1,7 @@
 const path = require("path");
 
 const turnPizzasIntoPages = async ({ graphql, actions }) => {
-  const pizzaTemplate = path.resolve("./src/templates/Pizza.js");
+  const pizzaTemplate = path.resolve("./src/templates/Pizza.jsx");
   const { data } = await graphql(`
     query {
       allSanityPizza {
@@ -23,6 +23,31 @@ const turnPizzasIntoPages = async ({ graphql, actions }) => {
   });
 };
 
+const turnToppingsIntoPages = async ({ graphql, actions }) => {
+  const toppingTemplate = path.resolve("./src/pages/pizzas.jsx");
+  const { data } = await graphql(`
+    query {
+      allSanityTopping {
+        nodes {
+          id
+          name
+          vegetarian
+        }
+      }
+    }
+  `);
+  data.allSanityTopping.nodes.forEach(topping => {
+    actions.createPage({
+      path: `topping/${topping.name}`,
+      component: toppingTemplate,
+      context: { topping: topping.name },
+    });
+  });
+};
+
 exports.createPages = async params => {
-  await turnPizzasIntoPages(params);
+  await Promise.all([
+    turnPizzasIntoPages(params),
+    turnToppingsIntoPages(params),
+  ]);
 };
