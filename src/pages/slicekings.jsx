@@ -38,9 +38,6 @@ const SliceKingWrapper = styled.div`
     border-bottom-right-radius: 1rem;
     box-shadow: 0px 13px 13px -16px rgba(0, 0, 0, 0.75);
   }
-  a {
-    text-decoration: none;
-  }
   &:hover {
     h2 {
       transform: rotate(3deg);
