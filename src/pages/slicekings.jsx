@@ -2,6 +2,7 @@ import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
+import Pagination from "../components/Pagination";
 
 const SliceKingsWrapper = styled.div`
   display: grid;
@@ -54,21 +55,31 @@ const Slicekings = ({
   data: {
     sliceKings: { nodes, totalCount },
   },
+  pageContext,
 }) => {
   return (
-    <SliceKingsWrapper>
-      {nodes.map(({ id, name, description, slug, image }) => (
-        <SliceKingWrapper key={id}>
-          <Link to={`/sliceking/${slug.current}`}>
-            <h2>
-              <span className="mark">{name}</span>
-            </h2>
-          </Link>
-          <GatsbyImage image={getImage(image.asset)} />
-          <p className="description">{description}</p>
-        </SliceKingWrapper>
-      ))}
-    </SliceKingsWrapper>
+    <>
+      <Pagination
+        pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)}
+        totalCount={totalCount}
+        currentPage={pageContext.currentPage || 1}
+        skip={pageContext.skip}
+        base="/slicekings"
+      />
+      <SliceKingsWrapper>
+        {nodes.map(({ id, name, description, slug, image }) => (
+          <SliceKingWrapper key={id}>
+            <Link to={`/sliceking/${slug.current}`}>
+              <h2>
+                <span className="mark">{name}</span>
+              </h2>
+            </Link>
+            <GatsbyImage image={getImage(image.asset)} />
+            <p className="description">{description}</p>
+          </SliceKingWrapper>
+        ))}
+      </SliceKingsWrapper>
+    </>
   );
 };
 
