@@ -10,6 +10,7 @@ const SliceKingsWrapper = styled.div`
   .gatsby-image-wrapper {
     height: 400px;
     object-fit: fill;
+    transform: rotate(1deg);
   }
 `;
 
@@ -18,7 +19,7 @@ const SliceKingWrapper = styled.div`
   flex-direction: column;
   gap: 10px;
   h2 {
-    transform: rotate(-2deg);
+    transform: rotate(-3deg);
     text-align: center;
     font-size: 4rem;
     margin-bottom: -3rem;
@@ -30,13 +31,22 @@ const SliceKingWrapper = styled.div`
     background: var(--yellow);
     margin: -3rem 2rem 0 2rem;
     z-index: 2;
-    transform: rotate(2deg);
+    transform: rotate(3deg);
     padding: 1rem;
     border-top-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
+    box-shadow: 0px 13px 13px -16px rgba(0, 0, 0, 0.75);
   }
   a {
     text-decoration: none;
+  }
+  &:hover {
+    h2 {
+      transform: rotate(3deg);
+    }
+    p {
+      transform: rotate(-3deg);
+    }
   }
 `;
 
@@ -65,8 +75,8 @@ const Slicekings = ({
 export default Slicekings;
 
 export const query = graphql`
-  query {
-    sliceKings: allSanityPerson {
+  query($skip: Int = 0, $pageSize: Int = 2) {
+    sliceKings: allSanityPerson(limit: $pageSize, skip: $skip) {
       totalCount
       nodes {
         id
