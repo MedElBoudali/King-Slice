@@ -33,9 +33,11 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: "King Slices",
-    siteUrl: "https://gatsby.pizza",
+    titleTemplate: "%s · King Slices",
     description: "The best pizza place in Hamilton!",
-    author: "@moelboudali",
+    image: "/static/thumbnail.jpg",
+    siteUrl: "https://gatsby.pizza",
+    twitter: "@moelboudali",
   },
   flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [

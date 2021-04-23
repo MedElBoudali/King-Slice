@@ -1,7 +1,8 @@
 import React from "react";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
+import SEO from "../components/common/SEO";
 
 const SinglePizzaPageWrapper = styled.div`
   display: flex;
@@ -23,17 +24,20 @@ const SinglePizzaPage = ({
   },
 }) => {
   return (
-    <SinglePizzaPageWrapper>
-      <GatsbyImage image={getImage(image.asset)} alt={name} />
-      <div>
-        <h2 className="mark">{name}</h2>
-        <ul>
-          {toppings.map(({ id, name }) => (
-            <li key={id}>{name}</li>
-          ))}
-        </ul>
-      </div>
-    </SinglePizzaPageWrapper>
+    <>
+      <SEO title={name} />
+      <SinglePizzaPageWrapper>
+        <GatsbyImage image={getImage(image.asset)} alt={name} />
+        <div>
+          <h2 className="mark">{name}</h2>
+          <ul>
+            {toppings.map(({ id, name }) => (
+              <li key={id}>{name}</li>
+            ))}
+          </ul>
+        </div>
+      </SinglePizzaPageWrapper>
+    </>
   );
 };
 
