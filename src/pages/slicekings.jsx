@@ -19,6 +19,10 @@ const SliceKingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  img {
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
   h2 {
     transform: rotate(-3deg);
     text-align: center;

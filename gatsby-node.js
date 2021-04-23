@@ -72,6 +72,7 @@ const fetchBeersAndTurnIntoNodes = async ({
 };
 
 const turnSliceKingsIntoPages = async ({ graphql, actions }) => {
+  const slicekingTemplate = path.resolve("./src/templates/SliceKing.jsx");
   const { data } = await graphql(`
     query {
       sliceKings: allSanityPerson {
@@ -87,6 +88,14 @@ const turnSliceKingsIntoPages = async ({ graphql, actions }) => {
       }
     }
   `);
+
+  data.sliceKings.nodes.forEach(sliceking => {
+    actions.createPage({
+      path: `sliceking/${sliceking.slug.current}`,
+      component: slicekingTemplate,
+      context: { name: sliceking.name, slug: sliceking.slug.current },
+    });
+  });
 
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
   const pageCount = Math.ceil(data.sliceKings.totalCount / pageSize);

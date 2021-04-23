@@ -1,0 +1,66 @@
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import React from "react";
+import styled from "styled-components";
+
+const SliceKingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 2rem;
+  align-items: center;
+  img {
+    height: 500px;
+    width: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1rem;
+  }
+  h2 {
+    transform: rotate(-3deg);
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: -4rem;
+    z-index: 2;
+  }
+  p {
+    font-size: 2rem;
+    text-align: center;
+  }
+`;
+
+const SliceKing = ({
+  data: {
+    sliceking: { name, description, image },
+  },
+}) => {
+  return (
+    <SliceKingWrapper>
+      <h2>
+        <span className="mark">{name}</span>
+      </h2>
+      <GatsbyImage image={getImage(image.asset)} />
+      <p className="description">{description}</p>
+    </SliceKingWrapper>
+  );
+};
+
+export default SliceKing;
+
+export const query = graphql`
+  query($slug: String!) {
+    sliceking: sanityPerson(slug: { current: { eq: $slug } }) {
+      id
+      name
+      description
+      image {
+        asset {
+          gatsbyImageData(width: 800, placeholder: BLURRED)
+        }
+      }
+      slug {
+        current
+      }
+    }
+  }
+`;
