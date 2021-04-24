@@ -2,6 +2,7 @@ import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
+import SEO from "../components/common/SEO";
 import Pagination from "../components/Pagination";
 
 const SliceKingsWrapper = styled.div`
@@ -57,9 +58,15 @@ const Slicekings = ({
     sliceKings: { nodes, totalCount },
   },
   pageContext,
+  location,
 }) => {
   return (
     <>
+      <SEO
+        title={`Slice Kings · Page ${pageContext.currentPage || 1}`}
+        description="All Slice Kings."
+        location={location.href}
+      />
       <Pagination
         pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)}
         totalCount={totalCount}

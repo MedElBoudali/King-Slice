@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import styled from "styled-components";
+import SEO from "../components/common/SEO";
 
 const BeersWrapper = styled.div`
   display: grid;
@@ -27,8 +28,15 @@ const Beers = ({
   data: {
     allBeer: { nodes: beers },
   },
+  location,
 }) => (
   <>
+    <SEO
+      title="Beers"
+      image={beers[0].image}
+      description="available beers."
+      location={location.href}
+    />
     <h2 className="center">We have {beers.length} beers available</h2>
     <BeersWrapper>
       {beers.map(({ id, name, image, price, rating: { reviews, average } }) => {

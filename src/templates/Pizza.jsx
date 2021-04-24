@@ -22,10 +22,11 @@ const SinglePizzaPage = ({
   data: {
     sanityPizza: { name, image, toppings },
   },
+  location,
 }) => {
   return (
     <>
-      <SEO title={name} />
+      <SEO title={name} image={image?.asset?.url} location={location.href} />
       <SinglePizzaPageWrapper>
         <GatsbyImage image={getImage(image.asset)} alt={name} />
         <div>
@@ -51,6 +52,7 @@ export const query = graphql`
       image {
         asset {
           gatsbyImageData(width: 800, placeholder: BLURRED)
+          url
         }
       }
       toppings {

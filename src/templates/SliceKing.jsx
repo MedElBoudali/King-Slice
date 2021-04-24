@@ -2,6 +2,7 @@ import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
+import SEO from "../components/common/SEO";
 
 const SliceKingWrapper = styled.div`
   display: flex;
@@ -31,17 +32,30 @@ const SliceKingWrapper = styled.div`
 
 const SliceKing = ({
   data: {
-    sliceking: { name, description, image },
+    sliceking: {
+      name,
+      description,
+      image: { asset, url },
+    },
   },
+  location,
 }) => {
   return (
-    <SliceKingWrapper>
-      <h2>
-        <span className="mark">{name}</span>
-      </h2>
-      <GatsbyImage image={getImage(image.asset)} />
-      <p className="description">{description}</p>
-    </SliceKingWrapper>
+    <>
+      <SEO
+        title={name}
+        description={description}
+        image={url}
+        location={location.href}
+      />
+      <SliceKingWrapper>
+        <h2>
+          <span className="mark">{name}</span>
+        </h2>
+        <GatsbyImage image={getImage(asset)} />
+        <p className="description">{description}</p>
+      </SliceKingWrapper>
+    </>
   );
 };
 
@@ -56,6 +70,7 @@ export const query = graphql`
       image {
         asset {
           gatsbyImageData(width: 800, placeholder: BLURRED)
+          url
         }
       }
       slug {
