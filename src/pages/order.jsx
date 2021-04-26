@@ -1,9 +1,9 @@
 import React from "react";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/Seo";
 
 const Order = ({ location }) => (
   <>
-    <SEO
+    <Seo
       title="Order Pizza!"
       description="Order Pizza."
       location={location.href}

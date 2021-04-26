@@ -1,10 +1,10 @@
 import React from "react";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/Seo";
 
 const Home = ({ location }) => {
   return (
     <>
-      <SEO location={location.href} />
+      <Seo title="HOT NOW" location={location.href} />
       <h1>Hello! i'm home page</h1>
     </>
   );

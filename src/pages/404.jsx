@@ -1,9 +1,9 @@
 import React from "react";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/Seo";
 
 const NotFoundPage = ({ location }) => (
   <>
-    <SEO
+    <Seo
       title="Page Not Found"
       description="Page Not Found."
       location={location.href}

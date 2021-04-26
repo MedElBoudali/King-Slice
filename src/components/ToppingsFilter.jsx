@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const ToppingsFilterWrapper = styled.div`
   display: flex;
