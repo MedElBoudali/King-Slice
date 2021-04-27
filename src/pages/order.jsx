@@ -3,6 +3,8 @@ import React from "react";
 import Seo from "../components/common/Seo";
 import useForm from "../hooks/useForm";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import calculatePizzaPrice from "../utils/calculatePizzaPrice";
+import formatMoney from "../utils/formatMoney";
 
 const Order = ({
   data: {
@@ -14,6 +16,7 @@ const Order = ({
     name: "",
     email: "",
   });
+
   return (
     <>
       <Seo
@@ -41,10 +44,24 @@ const Order = ({
         </fieldset>
         <fieldset>
           <legend>MENU</legend>
-          {pizzas.map(pizza => (
-            <div>
-              <h2>{pizza.name}</h2>
-              <GatsbyImage image={getImage(pizza.image.asset)} />
+          {pizzas.map(({ id, name, price, image, slug: { current } }) => (
+            <div key={id}>
+              <GatsbyImage
+                image={getImage(image ? image.asset : "")}
+                alt={name}
+              />
+              <div>
+                <h2>
+                  {name} + {id}
+                </h2>
+              </div>
+              <div>
+                {["S", "M", "L"].map((size, id) => (
+                  <button type="button" key={id}>
+                    {size} {formatMoney(calculatePizzaPrice(price, size))}
+                  </button>
+                ))}
+              </div>
             </div>
           ))}
         </fieldset>
