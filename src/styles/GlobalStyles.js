@@ -48,20 +48,20 @@ const GlobalStyles = createGlobalStyle`
   }
 
   /* Scrollbar Styles */
-  body::-webkit-scrollbar {
-    width: 12px;
-  }
-
   html {
     scrollbar-width: thin;
     scrollbar-color: var(--red) var(--white);
   }
+  
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
 
-  body::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track {
     background: var(--white);
   }
 
-  body::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     background-color: var(--red) ;
     border-radius: 6px;
     border: 3px solid var(--white);
