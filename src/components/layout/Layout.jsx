@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Navbar from "./common/Navbar";
-import Footer from "./common/Footer";
+import Navbar from "../common/Navbar";
+import Footer from "../common/Footer";
+import GlobalStyles from "../../styles/GlobalStyles";
+import Typography from "../../styles/Typography";
+import stripes from "../../assets/images/stripes.svg";
 import "normalize.css";
-import GlobalStyles from "../styles/GlobalStyles";
-import Typography from "../styles/Typography";
-import stripes from "../assets/images/stripes.svg";
 import PropTypes from "prop-types";
 
 const SiteBorderStyle = styled.div`

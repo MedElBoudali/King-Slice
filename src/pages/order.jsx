@@ -2,10 +2,10 @@ import { graphql } from "gatsby";
 import React from "react";
 import Seo from "../components/common/Seo";
 import useForm from "../hooks/useForm";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import calculatePizzaPrice from "../utils/calculatePizzaPrice";
-import formatMoney from "../utils/formatMoney";
 import styled from "styled-components";
+import usePizza from "../hooks/usePizza";
+import PizzaOrder from "../components/order/PizzaOrder";
+import PizzaItem from "../components/order/PizzaItem";
 
 const OrderForm = styled.form`
   display: grid;
@@ -17,6 +17,7 @@ const OrderForm = styled.form`
     display: grid;
     gap: 1rem;
     overflow: auto;
+    align-content: start;
     &:nth-child(2),
     &:nth-child(3) {
       grid-column: span 2;
@@ -24,39 +25,6 @@ const OrderForm = styled.form`
         grid-column: span 1;
       }
     }
-  }
-`;
-
-const MenuItem = styled.div`
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  gap: 0 1.3rem;
-  align-content: center;
-  align-items: center;
-  .gatsby-image-wrapper {
-    grid-row: span 2;
-    height: 100px;
-  }
-  p {
-    margin: 0;
-  }
-  button {
-    font-size: 1.4rem;
-  }
-  button + button {
-    margin-left: 1rem;
-  }
-
-  .remove {
-    background: none;
-    color: var(--red);
-    font-size: 3rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-    box-shadow: none;
-    line-height: 1rem;
   }
 `;
 
@@ -69,6 +37,11 @@ const Order = ({
   const { values, updateValue } = useForm({
     name: "",
     email: "",
+  });
+
+  const { orders, addOrder, removeOrder } = usePizza({
+    pizzas,
+    inputs: values,
   });
 
   return (
@@ -98,27 +71,27 @@ const Order = ({
         </fieldset>
         <fieldset>
           <legend>MENU</legend>
-          {pizzas.map(({ id, name, price, image, slug: { current } }) => (
-            <MenuItem key={id}>
-              <GatsbyImage
-                image={getImage(image ? image.asset : "")}
-                alt={name}
-              />
-              <div>
-                <h2>{name}</h2>
-              </div>
-              <div>
-                {["S", "M", "L"].map((size, id) => (
-                  <button type="button" key={id}>
-                    {size} {formatMoney(calculatePizzaPrice(price, size))}
-                  </button>
-                ))}
-              </div>
-            </MenuItem>
+          {pizzas.map(({ id, name, price, image, slug }) => (
+            <PizzaItem
+              key={id}
+              id={id}
+              name={name}
+              price={price}
+              image={image}
+              slug={slug}
+              addOrRemoveOrder={addOrder}
+              addOrRemove="add"
+              pizzaSize={1}
+            />
           ))}
         </fieldset>
         <fieldset>
           <legend>ORDER</legend>
+          <PizzaOrder
+            orders={orders}
+            removeOrder={removeOrder}
+            pizzas={pizzas}
+          />
         </fieldset>
       </OrderForm>
     </>
