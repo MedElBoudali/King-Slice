@@ -82,6 +82,7 @@ const Order = ({
               addOrRemoveOrder={addOrder}
               addOrRemove="add"
               pizzaSize={1}
+              index={id}
             />
           ))}
         </fieldset>

@@ -12,6 +12,7 @@ const PizzaOrder = ({ pizzas, orders, removeOrder }) => {
           <PizzaItem
             key={index}
             id={id}
+            index={index}
             name={name}
             price={price}
             image={image}

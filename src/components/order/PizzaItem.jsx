@@ -12,6 +12,7 @@ const MenuItem = styled.div`
   gap: 0 1.3rem;
   align-content: center;
   align-items: center;
+  position: relative;
   .gatsby-image-wrapper {
     grid-row: span 2;
     height: 100px;
@@ -25,21 +26,21 @@ const MenuItem = styled.div`
   button + button {
     margin-left: 1rem;
   }
+`;
 
-  .remove {
-    background: none;
-    color: var(--red);
-    font-size: 3rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-    box-shadow: none;
-    line-height: 1rem;
-  }
+const RemoveButton = styled.button`
+  background: none;
+  color: var(--red);
+  font-size: 3rem !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-shadow: none;
 `;
 
 const PizzaItem = ({
   id,
+  index,
   name,
   image,
   price,
@@ -77,6 +78,13 @@ const PizzaItem = ({
       ) : (
         <div>
           <p>{formatMoney(calculatePizzaPrice(price, pizzaSize))}</p>
+          <RemoveButton
+            type="button"
+            onClick={() => addOrRemoveOrder(index)}
+            title={`Remove ${name}`}
+          >
+            &times;
+          </RemoveButton>
         </div>
       )}
     </MenuItem>
