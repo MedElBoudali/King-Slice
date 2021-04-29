@@ -27,6 +27,12 @@ const OrderForm = styled.form`
         grid-column: span 1;
       }
     }
+    button[disabled] {
+      /* pointer-events: none; */
+      background-color: var(--grey);
+      color: var(--red);
+      cursor: progress;
+    }
   }
 `;
 
@@ -41,9 +47,17 @@ const Order = ({
     email: "",
   });
 
-  const { orders, addOrder, removeOrder } = usePizza({
+  const {
+    orders,
+    addOrder,
+    removeOrder,
+    loading,
+    error,
+    message,
+    submitOrder,
+  } = usePizza({
     pizzas,
-    inputs: values,
+    values,
   });
 
   return (
@@ -53,7 +67,7 @@ const Order = ({
         description="Order Pizza."
         location={location.href}
       />
-      <OrderForm>
+      <OrderForm onSubmit={submitOrder}>
         <fieldset>
           <legend>Your Info</legend>
           <label htmlFor="name">Name</label>
@@ -100,7 +114,9 @@ const Order = ({
           <h3>
             Your Total is {formatMoney(calculateOrderTotal(orders, pizzas))}
           </h3>
-          <button type="submit">Order Now</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Placing Order ..." : "Order Now"}
+          </button>
         </fieldset>
       </OrderForm>
     </>
@@ -122,6 +138,7 @@ export const query = graphql`
         image {
           asset {
             gatsbyImageData(width: 100, placeholder: BLURRED)
+            url
           }
         }
       }
