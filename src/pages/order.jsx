@@ -6,6 +6,8 @@ import styled from "styled-components";
 import usePizza from "../hooks/usePizza";
 import PizzaOrder from "../components/order/PizzaOrder";
 import PizzaItem from "../components/order/PizzaItem";
+import calculateOrderTotal from "../utils/calculateOrderTotal";
+import formatMoney from "../utils/formatMoney";
 
 const OrderForm = styled.form`
   display: grid;
@@ -93,6 +95,12 @@ const Order = ({
             removeOrder={removeOrder}
             pizzas={pizzas}
           />
+        </fieldset>
+        <fieldset>
+          <h3>
+            Your Total is {formatMoney(calculateOrderTotal(orders, pizzas))}
+          </h3>
+          <button type="submit">Order Now</button>
         </fieldset>
       </OrderForm>
     </>
