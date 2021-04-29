@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const generateOrderEmail = ({ orders, total }) => {
   return `
   <div>
-    <h2>Your recent Order for<strong>${total}</strong></h2>
+    <h2>Your recent Order for ${total}</h2>
     <p>Please start walking over, we will have your order ready in the next 20 mins.</p>
     <ul>
       ${orders
@@ -21,6 +21,11 @@ const generateOrderEmail = ({ orders, total }) => {
     <style>
         ul {
           list-style: none;
+        }
+        img{
+          height: 100px;
+          width: 100px;
+          object-fit: cover;
         }
     </style>
   </div>`;
