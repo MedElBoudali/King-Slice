@@ -60,6 +60,10 @@ const Order = ({
     values,
   });
 
+  if (message) {
+    return <p>{message}</p>;
+  }
+
   return (
     <>
       <Seo
@@ -114,6 +118,11 @@ const Order = ({
           <h3>
             Your Total is {formatMoney(calculateOrderTotal(orders, pizzas))}
           </h3>
+          {error && (
+            <div>
+              <p>Error: {error}</p>
+            </div>
+          )}
           <button type="submit" disabled={loading}>
             {loading ? "Placing Order ..." : "Order Now"}
           </button>
