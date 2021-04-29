@@ -21,7 +21,7 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    setMessage("");
+    // setMessage("Go eat!");
 
     const body = {
       orders: attachNamesAndPrices(orders, pizzas),
@@ -36,8 +36,8 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
         method: "POST",
         headers: {
           "Content-Type": "appliction/json",
-          body: JSON.stringify(body),
         },
+        body: JSON.stringify(body),
       }
     );
 
