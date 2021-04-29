@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import OrderContext from "./context/OrderContext";
 
 const usePizza = ({ pizzas, inputs }) => {
-  const [orders, setOrder] = useState([]);
-  const addOrder = orderedPizza => setOrder([...orders, orderedPizza]);
+  // before using useContext
+  // const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useContext(OrderContext);
+  const addOrder = orderedPizza => setOrders([...orders, orderedPizza]);
 
   const removeOrder = index =>
-    setOrder([...orders.slice(0, index), ...orders.slice(index + 1)]);
+    setOrders([...orders.slice(0, index), ...orders.slice(index + 1)]);
 
   return {
     orders,
