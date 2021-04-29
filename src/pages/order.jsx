@@ -80,6 +80,7 @@ const Order = ({
             name="name"
             value={values.name}
             onChange={updateValue}
+            required
           />
           <label htmlFor="email">Email</label>
           <input
@@ -87,6 +88,7 @@ const Order = ({
             name="email"
             value={values.email}
             onChange={updateValue}
+            required
           />
         </fieldset>
         <fieldset>
