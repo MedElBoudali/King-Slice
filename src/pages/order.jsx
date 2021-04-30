@@ -33,6 +33,12 @@ const OrderForm = styled.form`
       color: var(--red);
       cursor: progress;
     }
+    .error {
+      color: var(--red);
+    }
+    .success {
+      color: var(--yellow);
+    }
   }
 `;
 
@@ -42,7 +48,7 @@ const Order = ({
   },
   location,
 }) => {
-  const { values, updateValue } = useForm({
+  const { values, updateValue, clearValues } = useForm({
     name: "",
     email: "",
   });
@@ -60,10 +66,6 @@ const Order = ({
     values,
   });
 
-  if (message) {
-    return <p>{message}</p>;
-  }
-
   return (
     <>
       <Seo
@@ -71,7 +73,12 @@ const Order = ({
         description="Order Pizza."
         location={location.href}
       />
-      <OrderForm onSubmit={submitOrder}>
+      <OrderForm
+        onSubmit={e => {
+          submitOrder(e);
+          clearValues();
+        }}
+      >
         <fieldset>
           <legend>Your Info</legend>
           <label htmlFor="name">Name</label>
@@ -120,11 +127,10 @@ const Order = ({
           <h3>
             Your Total is {formatMoney(calculateOrderTotal(orders, pizzas))}
           </h3>
-          {error && (
-            <div>
-              <p>Error: {error}</p>
-            </div>
-          )}
+          <div>
+            {error && <p className="error">Error: {error}</p>}
+            {message && <p className="success">{message}</p>}
+          </div>
           <button type="submit" disabled={loading}>
             {loading ? "Placing Order ..." : "Order Now"}
           </button>
