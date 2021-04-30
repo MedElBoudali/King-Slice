@@ -8,7 +8,11 @@ const useForm = defaults => {
     setValues({ ...values, [name]: value });
   };
 
-  return { values, updateValue };
+  const clearValues = () => {
+    setValues(defaults);
+  };
+
+  return { values, updateValue, clearValues };
 };
 
 export default useForm;
