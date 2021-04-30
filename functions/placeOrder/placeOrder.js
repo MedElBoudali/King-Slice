@@ -11,7 +11,7 @@ const generateOrderEmail = ({ orders, total }) => {
           ({ name, thumbnail, size, price }) => `
           <li>
             <img src="${thumbnail}" alt="${name}"/>
-            ${size} ${name} - ${price}
+             ${name} - ${price} (${size})
           </li>
           `
         )
