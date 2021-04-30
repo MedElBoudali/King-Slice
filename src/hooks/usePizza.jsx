@@ -9,8 +9,8 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
   // const [orders, setOrders] = useState([]);
   const [orders, setOrders] = useContext(OrderContext);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const addOrder = orderedPizza => setOrders([...orders, orderedPizza]);
 
@@ -20,8 +20,8 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
   const submitOrder = async e => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    // setMessage("Go eat!");
+    setError(null);
+    setMessage(null);
 
     const body = {
       orders: attachNamesAndPrices(orders, pizzas),
@@ -47,6 +47,7 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
       setLoading(false);
       setError(text.message);
     } else {
+      setOrders([]);
       setLoading(false);
       setMessage("Success! Come on down for your pizzas");
     }
