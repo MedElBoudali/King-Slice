@@ -40,7 +40,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const wait = (ms = 0) => new Promise(res => setTimeout(res, ms));
+
 exports.handler = async (event, context) => {
+  await wait(5000);
   const body = JSON.parse(event.body);
   const requiredFields = ["name", "email", "orders"];
 
