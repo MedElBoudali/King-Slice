@@ -27,6 +27,9 @@ const OrderForm = styled.form`
         grid-column: span 1;
       }
     }
+    button[disabled] {
+      pointer-events: none;
+    }
     .error {
       color: var(--red);
     }
@@ -130,7 +133,7 @@ const Order = ({
               <p className="error">Error: {error}</p>
             </div>
           )}
-          <button type="submit">
+          <button type="submit" disabled={loading}>
             {loading ? "Placing Order ..." : "Order Now"}
           </button>
         </fieldset>

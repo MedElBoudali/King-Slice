@@ -49,7 +49,7 @@ exports.handler = async (event, context) => {
 
   // inputs validator
   for (const field of requiredFields) {
-    if (!body[field] || !body[field].length) {
+    if (!body[field]) {
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -57,6 +57,15 @@ exports.handler = async (event, context) => {
         }),
       };
     }
+  }
+
+  if (!body.orders.length) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `Why would you order nothing?`,
+      }),
+    };
   }
 
   try {
