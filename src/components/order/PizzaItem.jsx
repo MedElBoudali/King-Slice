@@ -1,9 +1,9 @@
 import React from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import formatMoney from "../../utils/formatMoney";
 import calculatePizzaPrice from "../../utils/calculatePizzaPrice";
+import PropTypes from "prop-types";
 
 const MenuItem = styled.div`
   display: grid;
@@ -44,16 +44,14 @@ const PizzaItem = ({
   name,
   image,
   price,
-  slug,
   addOrRemoveOrder,
   addOrRemove,
-  pizzaSize,
+  pizzaSize = 1,
 }) => {
   const addOrder = (id, size) => {
     addOrRemoveOrder({ id, size });
   };
 
-  const removeOrder = () => {};
   return (
     <MenuItem>
       <GatsbyImage

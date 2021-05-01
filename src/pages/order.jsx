@@ -1,5 +1,5 @@
-import { graphql } from "gatsby";
 import React from "react";
+import { graphql } from "gatsby";
 import Seo from "../components/common/Seo";
 import useForm from "../hooks/useForm";
 import styled from "styled-components";
@@ -27,19 +27,14 @@ const OrderForm = styled.form`
         grid-column: span 1;
       }
     }
-    button[disabled] {
-      /* pointer-events: none; */
-      background-color: var(--grey);
-      color: var(--red);
-      cursor: progress;
-    }
     .error {
       color: var(--red);
     }
-    .success {
-      color: var(--yellow);
-    }
   }
+`;
+
+const SuccessMessage = styled.p`
+  color: var(--yellow);
 `;
 
 const Order = ({
@@ -61,10 +56,15 @@ const Order = ({
     error,
     message,
     submitOrder,
-  } = usePizza({
-    pizzas,
-    values,
-  });
+  } = usePizza({ pizzas, values });
+
+  if (message) {
+    return (
+      <div>
+        <SuccessMessage>{message}</SuccessMessage>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -79,7 +79,7 @@ const Order = ({
           clearValues();
         }}
       >
-        <fieldset>
+        <fieldset disabled={loading}>
           <legend>Your Info</legend>
           <label htmlFor="name">Name</label>
           <input
@@ -98,24 +98,22 @@ const Order = ({
             required
           />
         </fieldset>
-        <fieldset>
+        <fieldset disabled={loading}>
           <legend>MENU</legend>
-          {pizzas.map(({ id, name, price, image, slug }) => (
+          {pizzas.map(({ id, name, price, image }, index) => (
             <PizzaItem
-              key={id}
+              key={id + index}
               id={id}
+              index={id}
               name={name}
               price={price}
               image={image}
-              slug={slug}
               addOrRemoveOrder={addOrder}
               addOrRemove="add"
-              pizzaSize={1}
-              index={id}
             />
           ))}
         </fieldset>
-        <fieldset>
+        <fieldset disabled={loading}>
           <legend>ORDER</legend>
           <PizzaOrder
             orders={orders}
@@ -123,15 +121,16 @@ const Order = ({
             pizzas={pizzas}
           />
         </fieldset>
-        <fieldset>
+        <fieldset disabled={loading}>
           <h3>
             Your Total is {formatMoney(calculateOrderTotal(orders, pizzas))}
           </h3>
-          <div>
-            {error && <p className="error">Error: {error}</p>}
-            {message && <p className="success">{message}</p>}
-          </div>
-          <button type="submit" disabled={loading}>
+          {error && (
+            <div>
+              <p className="error">Error: {error}</p>
+            </div>
+          )}
+          <button type="submit">
             {loading ? "Placing Order ..." : "Order Now"}
           </button>
         </fieldset>

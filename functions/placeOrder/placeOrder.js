@@ -49,7 +49,7 @@ exports.handler = async (event, context) => {
 
   // inputs validator
   for (const field of requiredFields) {
-    if (!body[field]) {
+    if (!body[field] || !body[field].length) {
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -59,15 +59,22 @@ exports.handler = async (event, context) => {
     }
   }
 
-  await transporter.sendMail({
-    from: "Slice Masters <slice@example.com>",
-    to: `${body.name} <${body.email}>, orders@example.com`,
-    subject: "New order!",
-    html: generateOrderEmail({ orders: body.orders, total: body.total }),
-  });
+  try {
+    await transporter.sendMail({
+      from: "Slice Masters <slice@example.com>",
+      to: `${body.name} <${body.email}>, orders@example.com`,
+      subject: "New order!",
+      html: generateOrderEmail({ orders: body.orders, total: body.total }),
+    });
+  } catch (error) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: "Mail is not sent" }),
+    };
+  }
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: "Success" }),
+    body: JSON.stringify({ message: "Success! Come on down for your pizzas." }),
   };
 };

@@ -5,12 +5,10 @@ import formatMoney from "../utils/formatMoney";
 import OrderContext from "./context/OrderContext";
 
 const usePizza = ({ pizzas, values: { name, email } }) => {
-  // before using useContext
-  // const [orders, setOrders] = useState([]);
-  const [orders, setOrders] = useContext(OrderContext);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [message, setMessage] = useState(null);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [orders, setOrders] = useContext(OrderContext);
 
   const addOrder = orderedPizza => setOrders([...orders, orderedPizza]);
 
@@ -20,8 +18,8 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
   const submitOrder = async e => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
-    setMessage(null);
+    setError("");
+    setMessage("");
 
     const body = {
       orders: attachNamesAndPrices(orders, pizzas),
@@ -44,13 +42,11 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
     const text = JSON.parse(await res.text());
 
     if (res.status >= 400 && res.status < 600) {
-      setLoading(false);
       setError(text.message);
     } else {
-      setOrders([]);
-      setLoading(false);
-      setMessage("Success! Come on down for your pizzas");
+      setMessage(text.message);
     }
+    setLoading(false);
   };
 
   return {
