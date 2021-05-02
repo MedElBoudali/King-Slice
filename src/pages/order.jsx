@@ -20,6 +20,9 @@ const OrderForm = styled.form`
     gap: 1rem;
     overflow: auto;
     align-content: start;
+    .pancakeSyrup {
+      display: none;
+    }
     &:nth-child(2),
     &:nth-child(3) {
       grid-column: span 2;
@@ -49,6 +52,7 @@ const Order = ({
   const { values, updateValue, clearValues } = useForm({
     name: "",
     email: "",
+    pancakeSyrup: "",
   });
 
   const {
@@ -99,6 +103,14 @@ const Order = ({
             value={values.email}
             onChange={updateValue}
             required
+          />
+          <input
+            type="pancakeSyrup"
+            name="pancakeSyrup"
+            value={values.pancakeSyrup}
+            onChange={updateValue}
+            required
+            className="pancakeSyrup"
           />
         </fieldset>
         <fieldset disabled={loading}>

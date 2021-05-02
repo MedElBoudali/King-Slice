@@ -4,7 +4,7 @@ import calculateOrderTotal from "../utils/calculateOrderTotal";
 import formatMoney from "../utils/formatMoney";
 import OrderContext from "./context/OrderContext";
 
-const usePizza = ({ pizzas, values: { name, email } }) => {
+const usePizza = ({ pizzas, values: { name, email, pancakeSyrup } }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -26,6 +26,7 @@ const usePizza = ({ pizzas, values: { name, email } }) => {
       total: formatMoney(calculateOrderTotal(orders, pizzas)),
       name,
       email,
+      pancakeSyrup,
     };
 
     const res = await fetch(
