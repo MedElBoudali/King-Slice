@@ -54,16 +54,13 @@ const PizzaItem = ({
 
   return (
     <MenuItem>
-      <GatsbyImage
-        image={image ? getImage(image.asset) : ""}
-        alt={name ?? ""}
-      />
+      <GatsbyImage image={getImage(image.asset)} alt={name} />
       <div>
         <h2>{name}</h2>
       </div>
-      {addOrRemove === "add" ? (
-        <div>
-          {["S", "M", "L"].map((size, index) => (
+      <div>
+        {addOrRemove === "add" ? (
+          ["S", "M", "L"].map((size, index) => (
             <button
               key={index}
               type="button"
@@ -71,20 +68,20 @@ const PizzaItem = ({
             >
               {size} {formatMoney(calculatePizzaPrice(price, size))}
             </button>
-          ))}
-        </div>
-      ) : (
-        <div>
-          <p>{formatMoney(calculatePizzaPrice(price, pizzaSize))}</p>
-          <RemoveButton
-            type="button"
-            onClick={() => addOrRemoveOrder(index)}
-            title={`Remove ${name}`}
-          >
-            &times;
-          </RemoveButton>
-        </div>
-      )}
+          ))
+        ) : (
+          <>
+            <p>{formatMoney(calculatePizzaPrice(price, pizzaSize))}</p>
+            <RemoveButton
+              type="button"
+              onClick={() => addOrRemoveOrder(index)}
+              title={`Remove ${name}`}
+            >
+              &times;
+            </RemoveButton>
+          </>
+        )}
+      </div>
     </MenuItem>
   );
 };
