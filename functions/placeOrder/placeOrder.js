@@ -43,7 +43,16 @@ const transporter = nodemailer.createTransport({
 const wait = (ms = 0) => new Promise(res => setTimeout(res, ms));
 
 exports.handler = async (event, context) => {
-  await wait(5000);
+  // Check if they have filled out the honeypot
+  if (body.pancakeSyrup) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `cya.`,
+      }),
+    };
+  }
+
   const body = JSON.parse(event.body);
   const requiredFields = ["name", "email", "orders"];
 
@@ -69,6 +78,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    await wait(5000);
     await transporter.sendMail({
       from: "Slice Masters <slice@example.com>",
       to: `${body.name} <${body.email}>, orders@example.com`,
