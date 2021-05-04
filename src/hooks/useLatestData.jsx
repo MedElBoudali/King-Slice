@@ -1,5 +1,22 @@
 import { useState, useEffect } from "react";
 
+// so we can use auto-formating and code highlighting
+const gql = String.raw;
+const sharedFragment = `
+          _id
+          name
+          image {
+            asset {
+              url
+              metadata {
+                lqip
+              }
+            }
+          }
+          slug {
+            current
+          }`;
+
 const useLatestData = () => {
   const [hotSlices, setHotSlices] = useState();
   const [sliceKings, setSliceKings] = useState();
@@ -13,28 +30,24 @@ const useLatestData = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            query: `query {
+            query: gql`
+              query {
                 StoreSettings(id: "downtown") {
-                    name
-                    sliceKings {
-                    name
-                    slug {
-                        current
-                    }
+                  name
+                  sliceKings {
+                    ${sharedFragment}
                     description
-                    }
-                    hotSlices {
-                    name
-                    slug {
-                        current
-                    }
+                  }
+                  hotSlices {
+                    ${sharedFragment}
                     toppings {
-                        name
-                        vegetarian
+                      name
+                      vegetarian
                     }
-                    }
+                  }
                 }
-                }`,
+              }
+            `,
           }),
         });
 
