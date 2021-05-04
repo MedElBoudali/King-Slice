@@ -21,20 +21,23 @@ const SkeletonItem = styled.div`
   position: relative;
   text-align: center;
   img {
-    border: 1px solid red;
     height: auto;
     font-size: 0;
   }
   p {
+    top: 0;
+    transform: rotate(-2deg) translateY(-10px);
     position: absolute;
-    transform: rotate(-2deg) translateY(-50%);
     width: 100%;
     left: 0;
+    margin: 0;
+    font-size: 2rem;
+    font-size: clamp(12px, 5vw, 20px);
   }
   .mark {
     display: inline;
   }
-  .loading {
+  img.loading {
     --shine: white;
     --background: var(--grey);
     background-image: linear-gradient(
