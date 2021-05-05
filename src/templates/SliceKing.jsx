@@ -35,7 +35,7 @@ const SliceKing = ({
     sliceking: {
       name,
       description,
-      image: { asset, url },
+      image: { asset },
     },
   },
   location,
@@ -45,7 +45,7 @@ const SliceKing = ({
       <SEO
         title={name}
         description={description}
-        image={url}
+        image={`${asset.url}?h=292&w=560&&fit=crop`}
         location={location.href}
       />
       <SliceKingWrapper>

@@ -20,15 +20,23 @@ const SinglePizzaPageWrapper = styled.div`
 
 const SinglePizzaPage = ({
   data: {
-    sanityPizza: { name, image, toppings },
+    sanityPizza: {
+      name,
+      image: { asset },
+      toppings,
+    },
   },
   location,
 }) => {
   return (
     <>
-      <SEO title={name} image={image?.asset?.url} location={location.href} />
+      <SEO
+        title={name}
+        image={`${asset.url}?h=292&w=560&&fit=crop`}
+        location={location.href}
+      />
       <SinglePizzaPageWrapper>
-        <GatsbyImage image={getImage(image.asset)} alt={name} />
+        <GatsbyImage image={getImage(asset)} alt={name} />
         <div>
           <h2 className="mark">{name}</h2>
           <ul>

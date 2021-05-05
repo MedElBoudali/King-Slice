@@ -17,10 +17,10 @@ const SEO = ({ title, image, description, children, location }) => {
   } = useStaticQuery(query);
 
   const seo = {
-    title: title || defaultTitle,
-    description: description || defaultDescription,
-    image: image || defaultImage,
-    siteUrl: location || siteUrl,
+    title: title ?? defaultTitle,
+    description: description ?? defaultDescription,
+    image: image ?? defaultImage,
+    siteUrl: location ?? siteUrl,
   };
 
   return (
