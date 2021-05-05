@@ -28,7 +28,6 @@ const SEO = ({ title, image, description, children, location }) => {
       <html lang="en" />
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="canonical" href="https://kingslices.netlify.app/" />
       <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
       {seo.title && <meta property="og:title" content={seo.title} />}
       {seo.title && <meta property="og:site_name" content={seo.title} />}

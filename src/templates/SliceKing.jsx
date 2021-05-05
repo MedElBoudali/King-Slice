@@ -40,13 +40,14 @@ const SliceKing = ({
   },
   location,
 }) => {
+  console.log(location.href);
   return (
     <>
       <SEO
         title={name}
         description={description}
         image={`${asset.url}?h=292&w=560&&fit=crop`}
-        location={location.href}
+        location={`https://kingslices.elboudali.com/sliceking/${name}`}
       />
       <SliceKingWrapper>
         <h2>
