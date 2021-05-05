@@ -15,28 +15,34 @@ const SEO = ({ title, image, description, children, location }) => {
       },
     },
   } = useStaticQuery(query);
+
+  const seo = {
+    title: title || defaultTitle,
+    description: description || defaultDescription,
+    image: image || defaultImage,
+    siteUrl: location || siteUrl,
+  };
+
   return (
-    <Helmet title={title ?? defaultTitle} titleTemplate={titleTemplate}>
+    <Helmet title={title} titleTemplate={titleTemplate}>
       <html lang="en" />
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
-      <meta property="og:title" content={title ?? defaultTitle} />
-      <meta property="og:site_name" content={title ?? defaultTitle} />
-      <meta name="twitter:title" content={title ?? defaultTitle} />
-      <meta name="description" content={description ?? defaultDescription} />
-      <meta
-        property="og:description"
-        content={description ?? defaultDescription}
-      />
-      <meta
-        name="twitter:description"
-        content={description ?? defaultDescription}
-      />
-      <meta name="image" content={image ?? defaultImage} />
-      <meta property="og:image" content={image ?? defaultImage} />
-      <meta name="twitter:image" content={image ?? defaultImage} />
-      <meta property="og:url" content={location ?? siteUrl} />
+      {seo.title && <meta property="og:title" content={seo.title} />}
+      {seo.title && <meta property="og:site_name" content={seo.title} />}
+      {seo.title && <meta name="twitter:title" content={seo.title} />}
+      {seo.description && <meta name="description" content={seo.description} />}
+      {seo.description && (
+        <meta property="og:description" content={seo.description} />
+      )}
+      {seo.description && (
+        <meta name="twitter:description" content={seo.description} />
+      )}
+      {seo.image && <meta name="image" content={seo.image} />}
+      {seo.image && <meta property="og:image" content={seo.image} />}
+      {seo.image && <meta name="twitter:image" content={seo.image} />}
+      {seo.siteUrl && <meta property="og:url" content={seo.siteUrl} />}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content={twitter} />
       {children}
