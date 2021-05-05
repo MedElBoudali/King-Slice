@@ -1,5 +1,5 @@
 import React from "react";
-import Seo from "../components/common/Seo";
+import SEO from "../components/common/SEO";
 import styled from "styled-components";
 import useLatestData from "../hooks/useLatestData";
 import Skeleton from "../components/Skeleton";
@@ -43,7 +43,7 @@ const Home = ({ location }) => {
 
   return (
     <>
-      <Seo title="HOT NOW" location={location.href} />
+      <SEO title="HOT NOW" location={location.href} />
       <div className="center">
         <h1>The Best Pizza Downtown!</h1>
         <p>Open 11am to 11pm Every Single Day.</p>

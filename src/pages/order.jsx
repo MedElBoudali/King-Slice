@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import Seo from "../components/common/Seo";
+import SEO from "../components/common/SEO";
 import useForm from "../hooks/useForm";
 import styled from "styled-components";
 import usePizza from "../hooks/usePizza";
@@ -75,7 +75,7 @@ const Order = ({
 
   return (
     <>
-      <Seo
+      <SEO
         title="Order Pizza!"
         description="Order Pizza."
         location={location.href}

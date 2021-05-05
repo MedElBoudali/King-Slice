@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
-import Seo from "../components/common/Seo";
+import SEO from "../components/common/SEO";
 
 const SinglePizzaPageWrapper = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const SinglePizzaPage = ({
 }) => {
   return (
     <>
-      <Seo title={name} image={image?.asset?.url} location={location.href} />
+      <SEO title={name} image={image?.asset?.url} location={location.href} />
       <SinglePizzaPageWrapper>
         <GatsbyImage image={getImage(image.asset)} alt={name} />
         <div>
