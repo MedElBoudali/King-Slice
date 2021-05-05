@@ -20,11 +20,7 @@ const SEO = ({ title, image, description, children, location }) => {
       <html lang="en" />
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link
-        rel="shortcut icon"
-        href="/static/favicon.svg"
-        type="image/svg+xml"
-      />
+      <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
       <meta property="og:title" content={title ?? defaultTitle} />
       <meta property="og:site_name" content={title ?? defaultTitle} />
       <meta name="twitter:title" content={title ?? defaultTitle} />
