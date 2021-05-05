@@ -14,6 +14,7 @@
     "gatsby-source-sanity": "^7.0.4",
     "gatsby-transformer-sharp": "^3.3.0",
     "isomorphic-fetch": "^3.0.0",
+    "netlify-lambda": "^2.0.6",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -36,7 +37,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "netlify": "netlify dev",
-    "postinstall": "netlify-lambda install",
+    "postbuild": "netlify-lambda install",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {
