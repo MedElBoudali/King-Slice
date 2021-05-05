@@ -7,8 +7,8 @@ module.exports = {
     title: "King Slices",
     titleTemplate: "%s · King Slices",
     description: "The best pizza place in Hamilton!",
-    image: "/static/thumbnail.jpg",
-    siteUrl: "https://gatsby.pizza",
+    image: "/thumbnail.jpg",
+    siteUrl: "https://kingslices.elboudali.com",
     twitter: "@moelboudali",
   },
   plugins: [
