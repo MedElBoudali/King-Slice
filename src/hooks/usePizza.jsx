@@ -36,7 +36,7 @@ const usePizza = ({ pizzas, values: { name, email, pancakeSyrup } }) => {
         headers: {
           "Content-Type": "appliction/json",
         },
-        body: JSON.stringify(body),
+        body,
       }
     );
 
