@@ -55,38 +55,39 @@ const requiredFields = ["name", "email", "orders"];
 exports.handler = async (event, context) => {
   try {
     const body = JSON.parse(event.body);
+    console.log(event);
     // Check if they have filled out the honeypot
     if (body.pancakeSyrup) {
-      return {
+      return callback(null, {
         headers,
         statusCode: 400,
         body: JSON.stringify({
           message: `cya.`,
         }),
-      };
+      });
     }
 
     // inputs validator
     for (const field of requiredFields) {
       if (!body[field]) {
-        return {
+        return callback(null, {
           headers,
           statusCode: 400,
           body: JSON.stringify({
             message: `Oops! You are missing the ${field} field.`,
           }),
-        };
+        });
       }
     }
 
     if (!body.orders.length) {
-      return {
+      return callback(null, {
         headers,
         statusCode: 400,
         body: JSON.stringify({
           message: `Why would you order nothing?`,
         }),
-      };
+      });
     }
 
     // await wait(5000);
@@ -97,20 +98,20 @@ exports.handler = async (event, context) => {
       html: generateOrderEmail({ orders: body.orders, total: body.total }),
     });
 
-    return {
+    return callback(null, {
       headers,
       statusCode: 200,
       body: JSON.stringify({
         message: "Success! Come on down for your pizzas.",
       }),
-    };
+    });
   } catch (error) {
-    return {
+    return callback(null, {
       headers,
       statusCode: 400,
       body: JSON.stringify({
         message: `Mail is not sent Error: ${error.message}`,
       }),
-    };
+    });
   }
 };
