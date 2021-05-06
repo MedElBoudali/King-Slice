@@ -47,7 +47,6 @@ const Order = ({
   data: {
     allSanityPizza: { nodes: pizzas },
   },
-  location,
 }) => {
   const { values, updateValue, clearValues } = useForm({
     name: "",
@@ -109,7 +108,6 @@ const Order = ({
             name="pancakeSyrup"
             value={values.pancakeSyrup}
             onChange={updateValue}
-            required
             className="pancakeSyrup"
           />
         </fieldset>

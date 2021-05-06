@@ -1,5 +1,6 @@
 import React from "react";
 import PizzaItem from "./PizzaItem";
+import PropTypes from "prop-types";
 
 const PizzaOrder = ({ pizzas, orders, removeOrder }) => {
   return (
@@ -25,6 +26,12 @@ const PizzaOrder = ({ pizzas, orders, removeOrder }) => {
       })}
     </>
   );
+};
+
+PizzaOrder.propTypes = {
+  pizzas: PropTypes.array.isRequired,
+  orders: PropTypes.array.isRequired,
+  removeOrder: PropTypes.func.isRequired,
 };
 
 export default PizzaOrder;

@@ -88,7 +88,7 @@ const ItemComponent = ({ data }) => {
   return (
     <ItemComponentWrapper>
       {data.map(item => (
-        <DataItem background={item.image.asset.metadata.lqip}>
+        <DataItem background={item.image.asset.metadata.lqip} key={item._id}>
           <p>
             <span className="mark">{item.name}</span>
           </p>

@@ -3,8 +3,7 @@ import styled, { css } from "styled-components";
 import stripes from "../../assets/images/stripes.svg";
 
 const LogoStyles = styled.div`
-  /* This value controls the entire size of the logo*/
-  ${({ logoStyle }) => logoStyle}
+  transform: translateY(-25%);
   font-size: 6px;
   font-size: clamp(1px, 0.65vw, 8px);
   width: 30em;
@@ -94,9 +93,9 @@ const Slice = styled.span`
   transform: translateY(-0.15em);
 `;
 
-export default function Logo({ logoStyle }) {
+const Logo = () => {
   return (
-    <LogoStyles logoStyle={logoStyle}>
+    <LogoStyles>
       <div>
         <Est>EST 1991</Est>
         <h1>
@@ -111,4 +110,6 @@ export default function Logo({ logoStyle }) {
       </div>
     </LogoStyles>
   );
-}
+};
+
+export default Logo;

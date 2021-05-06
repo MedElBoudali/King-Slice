@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 
 const SEO = ({ title, image, description, children, location }) => {
   const {
@@ -48,6 +49,14 @@ const SEO = ({ title, image, description, children, location }) => {
       {children}
     </Helmet>
   );
+};
+
+SEO.propTypes = {
+  title: PropTypes.string,
+  image: PropTypes.object,
+  description: PropTypes.string,
+  children: PropTypes.node,
+  location: PropTypes.string,
 };
 
 export default SEO;

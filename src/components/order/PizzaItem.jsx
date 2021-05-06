@@ -1,9 +1,9 @@
 import React from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
-import formatMoney from "../../utils/formatMoney";
-import calculatePizzaPrice from "../../utils/calculatePizzaPrice";
 import PropTypes from "prop-types";
+import calculatePizzaPrice from "../../utils/calculatePizzaPrice";
+import formatMoney from "../../utils/formatMoney";
 
 const MenuItem = styled.div`
   display: grid;
@@ -86,6 +86,15 @@ const PizzaItem = ({
   );
 };
 
-PizzaItem.propTypes = {};
+PizzaItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  index: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
+  price: PropTypes.number.isRequired,
+  addOrRemoveOrder: PropTypes.func.isRequired,
+  addOrRemove: PropTypes.string.isRequired,
+  pizzaSize: PropTypes.number,
+};
 
 export default PizzaItem;

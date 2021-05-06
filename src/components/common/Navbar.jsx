@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "gatsby";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Logo from "./Logo";
 
 const NavStyle = styled.nav`
   display: grid;
   grid-template-columns: 1fr 1fr auto 1fr 1fr;
   grid-gap: 2rem;
-  /* margin-bottom: 3rem; */
   align-items: center;
   text-align: center;
 `;
@@ -38,16 +37,12 @@ const NavStyleLink = styled(Link)`
   } */
 `;
 
-const LogoStyle = css`
-  transform: translateY(-25%);
-`;
-
 const Navbar = () => (
   <NavStyle>
     <NavStyleLink to="/">hot now</NavStyleLink>
     <NavStyleLink to="/pizzas">pizza menu</NavStyleLink>
     <NavStyleLink to="/">
-      <Logo logoStyle={LogoStyle} />
+      <Logo />
     </NavStyleLink>
     <NavStyleLink to="/slicekings">slicekings</NavStyleLink>
     <NavStyleLink to="/order">order ahead</NavStyleLink>
