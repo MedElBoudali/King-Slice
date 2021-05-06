@@ -1,8 +1,9 @@
 import React from "react";
 import SEO from "../components/common/SEO";
-import styled from "styled-components";
 import useLatestData from "../hooks/useLatestData";
 import Skeleton from "../components/Skeleton";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const HomeWrapper = styled.div`
   display: grid;
@@ -102,6 +103,10 @@ const ItemComponent = ({ data }) => {
       ))}
     </ItemComponentWrapper>
   );
+};
+
+Home.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Home;

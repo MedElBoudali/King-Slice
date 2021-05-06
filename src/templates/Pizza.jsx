@@ -1,8 +1,9 @@
 import React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import styled from "styled-components";
 import SEO from "../components/common/SEO";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const SinglePizzaPageWrapper = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ const SinglePizzaPage = ({
       <SEO
         title={name}
         image={`${asset.url}?h=292&w=560&&fit=crop`}
-        location={`${process.env.GATSBY_GRAPHQL_BASE}/pizza/${current}`}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/pizza/${current}/`}
       />
       <SinglePizzaPageWrapper>
         <GatsbyImage image={getImage(asset)} alt={name} />
@@ -48,6 +49,10 @@ const SinglePizzaPage = ({
       </SinglePizzaPageWrapper>
     </>
   );
+};
+
+SinglePizzaPage.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default SinglePizzaPage;

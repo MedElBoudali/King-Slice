@@ -2,12 +2,13 @@ import React from "react";
 import { graphql } from "gatsby";
 import SEO from "../components/common/SEO";
 import useForm from "../hooks/useForm";
-import styled from "styled-components";
 import usePizza from "../hooks/usePizza";
 import PizzaOrder from "../components/order/PizzaOrder";
 import PizzaItem from "../components/order/PizzaItem";
 import calculateOrderTotal from "../utils/calculateOrderTotal";
 import formatMoney from "../utils/formatMoney";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const OrderForm = styled.form`
   display: grid;
@@ -77,7 +78,7 @@ const Order = ({
       <SEO
         title="Order Pizza!"
         description="Order Pizza."
-        location={`${process.env.GATSBY_GRAPHQL_BASE}/order`}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/order/`}
       />
       <OrderForm
         onSubmit={e => {
@@ -104,7 +105,7 @@ const Order = ({
             required
           />
           <input
-            type="pancakeSyrup"
+            type="text"
             name="pancakeSyrup"
             value={values.pancakeSyrup}
             onChange={updateValue}
@@ -150,6 +151,10 @@ const Order = ({
       </OrderForm>
     </>
   );
+};
+
+Order.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default Order;

@@ -1,8 +1,9 @@
 import React from "react";
 import { graphql } from "gatsby";
-import PizzaList from "../components/PizzaList";
-import ToppingsFilter from "../components/ToppingsFilter";
 import SEO from "../components/common/SEO";
+import ToppingsFilter from "../components/ToppingsFilter";
+import PizzaList from "../components/PizzaList";
+import PropTypes from "prop-types";
 
 const Pizzas = ({ data: { allSanityPizza }, pageContext }) => {
   const pizzas = allSanityPizza.nodes;
@@ -19,6 +20,10 @@ const Pizzas = ({ data: { allSanityPizza }, pageContext }) => {
       <PizzaList pizzas={pizzas} />
     </>
   );
+};
+
+Pizzas.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default Pizzas;

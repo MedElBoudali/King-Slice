@@ -57,12 +57,12 @@ const ToppingsFilter = () => {
 
   return (
     <ToppingsFilterWrapper>
-      <Link to="/pizzas">
+      <Link to="/pizzas/">
         <span className="name">ALL</span>
         <span className="count">{allSanityTopping.nodes.length}</span>
       </Link>
       {countPizzasInToppings(allSanityPizza.nodes).map(topping => (
-        <Link to={`/topping/${topping.name}`} key={topping.id}>
+        <Link to={`/topping/${topping.name}/`} key={topping.id}>
           <span className="name">{topping.name}</span>
           <span className="count">{topping.count}</span>
         </Link>

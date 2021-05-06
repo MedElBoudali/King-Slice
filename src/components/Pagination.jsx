@@ -46,15 +46,17 @@ const Pagination = ({ pageSize, totalCount, currentPage, base }) => {
 
   return (
     <PaginationWrapper>
-      <Link disabled={!hasPrevPage} to={`${base}/${prevPage}`}>
+      <Link disabled={!hasPrevPage} to={`${base}/${prevPage}/`}>
         ◀︎ Prev
       </Link>
       <div>
         {Array.from({ length: totalPages }).map((_, i) => (
-          <Link to={`${base}${i > 0 ? `/${i + 1}` : ""}`}>{i + 1}</Link>
+          <Link to={`${base}${i > 0 ? `/${i + 1}` : ""}/`} key={i}>
+            {i + 1}
+          </Link>
         ))}
       </div>
-      <Link disabled={!hasNextPage} to={`${base}/${nextPage}`}>
+      <Link disabled={!hasNextPage} to={`${base}/${nextPage}/`}>
         Next ▶︎
       </Link>
     </PaginationWrapper>

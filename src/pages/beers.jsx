@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import styled from "styled-components";
 import SEO from "../components/common/SEO";
+import PropTypes from "prop-types";
 
 const BeersWrapper = styled.div`
   display: grid;
@@ -34,7 +35,7 @@ const Beers = ({
       title="Beers"
       image={beers[0].image}
       description="available beers."
-      location={`${process.env.GATSBY_GRAPHQL_BASE}/beers`}
+      location={`${process.env.GATSBY_GRAPHQL_BASE}/beers/`}
     />
     <h2 className="center">We have {beers.length} beers available</h2>
     <BeersWrapper>
@@ -58,6 +59,10 @@ const Beers = ({
     </BeersWrapper>
   </>
 );
+
+Beers.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default Beers;
 

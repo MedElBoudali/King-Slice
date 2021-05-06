@@ -53,7 +53,7 @@ const SEO = ({ title, image, description, children, location }) => {
 
 SEO.propTypes = {
   title: PropTypes.string,
-  image: PropTypes.object,
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   description: PropTypes.string,
   children: PropTypes.node,
   location: PropTypes.string,

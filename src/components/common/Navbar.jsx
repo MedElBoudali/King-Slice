@@ -40,12 +40,12 @@ const NavStyleLink = styled(Link)`
 const Navbar = () => (
   <NavStyle>
     <NavStyleLink to="/">hot now</NavStyleLink>
-    <NavStyleLink to="/pizzas">pizza menu</NavStyleLink>
+    <NavStyleLink to="/pizzas/">pizza menu</NavStyleLink>
     <NavStyleLink to="/">
       <Logo />
     </NavStyleLink>
-    <NavStyleLink to="/slicekings">slicekings</NavStyleLink>
-    <NavStyleLink to="/order">order ahead</NavStyleLink>
+    <NavStyleLink to="/slicekings/">slicekings</NavStyleLink>
+    <NavStyleLink to="/order/">order ahead</NavStyleLink>
   </NavStyle>
 );
 

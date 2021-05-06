@@ -3,6 +3,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
 import SEO from "../components/common/SEO";
+import PropTypes from "prop-types";
 
 const SliceKingWrapper = styled.div`
   display: flex;
@@ -46,17 +47,21 @@ const SliceKing = ({
         title={name}
         description={description}
         image={`${asset.url}?h=292&w=560&&fit=crop`}
-        location={`${process.env.GATSBY_GRAPHQL_BASE}/sliceking/${current}`}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/sliceking/${current}/`}
       />
       <SliceKingWrapper>
         <h2>
           <span className="mark">{name}</span>
         </h2>
-        <GatsbyImage image={getImage(asset)} />
+        <GatsbyImage image={getImage(asset)} alt={name} />
         <p className="description">{description}</p>
       </SliceKingWrapper>
     </>
   );
+};
+
+SliceKing.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default SliceKing;
