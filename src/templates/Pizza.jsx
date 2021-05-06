@@ -9,7 +9,7 @@ const SinglePizzaPageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  img {
+  .gatsby-image-wrapper {
     width: 500px;
     margin-right: 3rem;
     border-radius: 10px;
