@@ -24,9 +24,9 @@ const usePizza = ({ pizzas, values: { name, email, pancakeSyrup } }) => {
     const body = {
       orders: attachNamesAndPrices(orders, pizzas),
       total: formatMoney(calculateOrderTotal(orders, pizzas)),
-      name,
-      email,
-      pancakeSyrup,
+      name: name,
+      email: email,
+      pancakeSyrup: pancakeSyrup,
     };
 
     const res = await fetch(
@@ -36,7 +36,7 @@ const usePizza = ({ pizzas, values: { name, email, pancakeSyrup } }) => {
         headers: {
           "Content-Type": "appliction/json",
         },
-        body,
+        body: JSON.stringify(body),
       }
     );
 
