@@ -1,5 +1,13 @@
 const nodemailer = require("nodemailer");
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "Origin, X-Requested-With, Content-Type, Accept",
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Methods": "*",
+};
+
 const generateOrderEmail = ({ orders, total }) => {
   return `
   <div>
@@ -47,11 +55,7 @@ exports.handler = async (event, context) => {
   // Check if they have filled out the honeypot
   if (body.pancakeSyrup) {
     return {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST",
-      },
+      headers,
       statusCode: 400,
       body: JSON.stringify({
         message: `cya.`,
@@ -65,11 +69,7 @@ exports.handler = async (event, context) => {
   for (const field of requiredFields) {
     if (!body[field]) {
       return {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Content-Type",
-          "Access-Control-Allow-Methods": "POST",
-        },
+        headers,
         statusCode: 400,
         body: JSON.stringify({
           message: `Oops! You are missing the ${field} field.`,
@@ -80,11 +80,7 @@ exports.handler = async (event, context) => {
 
   if (!body.orders.length) {
     return {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST",
-      },
+      headers,
       statusCode: 400,
       body: JSON.stringify({
         message: `Why would you order nothing?`,
@@ -102,22 +98,14 @@ exports.handler = async (event, context) => {
     });
   } catch (error) {
     return {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST",
-      },
+      headers,
       statusCode: 400,
       body: JSON.stringify({ message: "Mail is not sent" }),
     };
   }
 
   return {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "POST",
-    },
+    headers,
     statusCode: 200,
     body: JSON.stringify({ message: "Success! Come on down for your pizzas." }),
   };
