@@ -4,7 +4,7 @@ import PizzaList from "../components/PizzaList";
 import ToppingsFilter from "../components/ToppingsFilter";
 import SEO from "../components/common/SEO";
 
-const Pizzas = ({ data: { allSanityPizza }, location, pageContext }) => {
+const Pizzas = ({ data: { allSanityPizza }, pageContext }) => {
   const pizzas = allSanityPizza.nodes;
   return (
     <>
@@ -14,9 +14,7 @@ const Pizzas = ({ data: { allSanityPizza }, location, pageContext }) => {
             ? `Pizzas with ${pageContext.topping}`
             : "Pizza Menu"
         }
-        location={`${process.env.GATSBY_GRAPHQL_BASE}/pizzas/${
-          pageContext.topping ?? ""
-        }`}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/pizzas`}
       />
       <ToppingsFilter />
       <PizzaList pizzas={pizzas} />
