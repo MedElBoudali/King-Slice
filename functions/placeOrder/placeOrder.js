@@ -52,7 +52,7 @@ const wait = (ms = 0) => new Promise(res => setTimeout(res, ms));
 
 const requiredFields = ["name", "email", "orders"];
 
-exports.handler = async (event, context) => {
+exports.handler = async (event, context, callback) => {
   try {
     const body = JSON.parse(event.body);
     console.log(event);
