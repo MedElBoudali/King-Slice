@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const querystring = require("querystring");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
@@ -52,44 +53,50 @@ const wait = (ms = 0) => new Promise(res => setTimeout(res, ms));
 
 const requiredFields = ["name", "email", "orders"];
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event, context) => {
+  let body = {};
+
   try {
-    const body = JSON.parse(event.body);
-    console.log(event);
-    // Check if they have filled out the honeypot
-    if (body.pancakeSyrup) {
-      return callback(null, {
+    body = JSON.parse(event.body);
+  } catch (e) {
+    body = querystring.parse(event.body);
+  }
+
+  // Check if they have filled out the honeypot
+  if (body.pancakeSyrup) {
+    return {
+      headers,
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `cya.`,
+      }),
+    };
+  }
+
+  // inputs validator
+  for (const field of requiredFields) {
+    if (!body[field]) {
+      return {
         headers,
         statusCode: 400,
         body: JSON.stringify({
-          message: `cya.`,
+          message: `Oops! You are missing the ${field} field.`,
         }),
-      });
+      };
     }
+  }
 
-    // inputs validator
-    for (const field of requiredFields) {
-      if (!body[field]) {
-        return callback(null, {
-          headers,
-          statusCode: 400,
-          body: JSON.stringify({
-            message: `Oops! You are missing the ${field} field.`,
-          }),
-        });
-      }
-    }
+  if (!body.orders.length) {
+    return {
+      headers,
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `Why would you order nothing?`,
+      }),
+    };
+  }
 
-    if (!body.orders.length) {
-      return callback(null, {
-        headers,
-        statusCode: 400,
-        body: JSON.stringify({
-          message: `Why would you order nothing?`,
-        }),
-      });
-    }
-
+  try {
     // await wait(5000);
     await transporter.sendMail({
       from: "Slice Masters <slice@example.com>",
@@ -98,20 +105,20 @@ exports.handler = async (event, context, callback) => {
       html: generateOrderEmail({ orders: body.orders, total: body.total }),
     });
 
-    return callback(null, {
+    return {
       headers,
       statusCode: 200,
       body: JSON.stringify({
         message: "Success! Come on down for your pizzas.",
       }),
-    });
+    };
   } catch (error) {
-    return callback(null, {
+    return {
       headers,
       statusCode: 400,
       body: JSON.stringify({
         message: `Mail is not sent Error: ${error.message}`,
       }),
-    });
+    };
   }
 };
