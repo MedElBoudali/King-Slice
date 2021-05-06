@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import styled from "styled-components";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/SEO";
 import PropTypes from "prop-types";
 
 const BeersWrapper = styled.div`
@@ -31,7 +31,7 @@ const Beers = ({
   },
 }) => (
   <>
-    <SEO
+    <Seo
       title="Beers"
       image={beers[0].image}
       description="available beers."

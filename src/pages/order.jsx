@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/SEO";
 import useForm from "../hooks/useForm";
 import usePizza from "../hooks/usePizza";
 import PizzaOrder from "../components/order/PizzaOrder";
@@ -75,7 +75,7 @@ const Order = ({
 
   return (
     <>
-      <SEO
+      <Seo
         title="Order Pizza!"
         description="Order Pizza."
         location={`${process.env.GATSBY_GRAPHQL_BASE}/order/`}

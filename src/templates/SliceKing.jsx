@@ -2,7 +2,7 @@ import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/SEO";
 import PropTypes from "prop-types";
 
 const SliceKingWrapper = styled.div`
@@ -43,7 +43,7 @@ const SliceKing = ({
 }) => {
   return (
     <>
-      <SEO
+      <Seo
         title={name}
         description={description}
         image={`${asset.url}?h=292&w=560&&fit=crop`}

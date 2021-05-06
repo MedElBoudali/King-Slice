@@ -1,9 +1,9 @@
 import React from "react";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/SEO";
 
 const NotFoundPage = () => (
   <>
-    <SEO title="Page Not Found" description="Page Not Found." />
+    <Seo title="Page Not Found" description="Page Not Found." />
     <h1>Not Found Page</h1>
   </>
 );

@@ -50,63 +50,67 @@ const transporter = nodemailer.createTransport({
 
 const wait = (ms = 0) => new Promise(res => setTimeout(res, ms));
 
+const requiredFields = ["name", "email", "orders"];
+
 exports.handler = async (event, context) => {
-  const body = JSON.parse(event.body);
-  // Check if they have filled out the honeypot
-  if (body.pancakeSyrup) {
-    return {
-      headers,
-      statusCode: 400,
-      body: JSON.stringify({
-        message: `cya.`,
-      }),
-    };
-  }
-
-  const requiredFields = ["name", "email", "orders"];
-
-  // inputs validator
-  for (const field of requiredFields) {
-    if (!body[field]) {
+  try {
+    const body = JSON.parse(event.body);
+    // Check if they have filled out the honeypot
+    if (body.pancakeSyrup) {
       return {
         headers,
         statusCode: 400,
         body: JSON.stringify({
-          message: `Oops! You are missing the ${field} field.`,
+          message: `cya.`,
         }),
       };
     }
-  }
 
-  if (!body.orders.length) {
-    return {
-      headers,
-      statusCode: 400,
-      body: JSON.stringify({
-        message: `Why would you order nothing?`,
-      }),
-    };
-  }
+    // inputs validator
+    for (const field of requiredFields) {
+      if (!body[field]) {
+        return {
+          headers,
+          statusCode: 400,
+          body: JSON.stringify({
+            message: `Oops! You are missing the ${field} field.`,
+          }),
+        };
+      }
+    }
 
-  try {
-    await wait(5000);
+    if (!body.orders.length) {
+      return {
+        headers,
+        statusCode: 400,
+        body: JSON.stringify({
+          message: `Why would you order nothing?`,
+        }),
+      };
+    }
+
+    // await wait(5000);
     await transporter.sendMail({
       from: "Slice Masters <slice@example.com>",
       to: `${body.name} <${body.email}>, orders@example.com`,
       subject: "New order!",
       html: generateOrderEmail({ orders: body.orders, total: body.total }),
     });
+
+    return {
+      headers,
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "Success! Come on down for your pizzas.",
+      }),
+    };
   } catch (error) {
     return {
       headers,
       statusCode: 400,
-      body: JSON.stringify({ message: "Mail is not sent" }),
+      body: JSON.stringify({
+        message: `Mail is not sent Error: ${error.message}`,
+      }),
     };
   }
-
-  return {
-    headers,
-    statusCode: 200,
-    body: JSON.stringify({ message: "Success! Come on down for your pizzas." }),
-  };
 };

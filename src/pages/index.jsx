@@ -1,5 +1,5 @@
 import React from "react";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/SEO";
 import useLatestData from "../hooks/useLatestData";
 import Skeleton from "../components/Skeleton";
 import styled from "styled-components";
@@ -44,7 +44,7 @@ const Home = () => {
 
   return (
     <>
-      <SEO />
+      <Seo />
       <div className="center">
         <h1>The Best Pizza Downtown!</h1>
         <p>Open 11am to 11pm Every Single Day.</p>

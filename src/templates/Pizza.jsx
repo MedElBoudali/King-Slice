@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/SEO";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -31,7 +31,7 @@ const SinglePizzaPage = ({
 }) => {
   return (
     <>
-      <SEO
+      <Seo
         title={name}
         image={`${asset.url}?h=292&w=560&&fit=crop`}
         location={`${process.env.GATSBY_GRAPHQL_BASE}/pizza/${current}/`}

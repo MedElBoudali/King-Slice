@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import SEO from "../components/common/SEO";
+import Seo from "../components/common/SEO";
 import Pagination from "../components/Pagination";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -62,7 +62,7 @@ const Slicekings = ({
 }) => {
   return (
     <>
-      <SEO
+      <Seo
         title={`Slice Kings · Page ${pageContext.currentPage ?? 1}`}
         description="All Slice Kings."
         location={`${process.env.GATSBY_GRAPHQL_BASE}/slicekings/${
