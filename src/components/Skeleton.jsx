@@ -10,7 +10,6 @@ const SkeletonWrapper = styled.div`
 const SkeletonAnimation = keyframes`
     from {
         background-position: 200%;
-
     } 
     to{
         background-position: -40px; 
@@ -48,10 +47,10 @@ const SkeletonItem = styled.div`
   }
 `;
 
-const Skeleton = ({ count }) => {
+const Skeleton = () => {
   return (
     <SkeletonWrapper>
-      {Array.from({ length: count }, (_, i) => (
+      {Array.from({ length: 4 }, (_, i) => (
         <SkeletonItem key={i}>
           <p>
             <span className="mark">Loading...</span>

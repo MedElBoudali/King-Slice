@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import styled from "styled-components";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const ToppingsFilterWrapper = styled.div`
   display: flex;
@@ -53,25 +53,7 @@ const countPizzasInToppings = pizzas => {
 };
 
 const ToppingsFilter = () => {
-  const { allSanityTopping, allSanityPizza } = useStaticQuery(graphql`
-    query {
-      allSanityTopping {
-        nodes {
-          id
-          name
-          vegetarian
-        }
-      }
-      allSanityPizza {
-        nodes {
-          toppings {
-            id
-            name
-          }
-        }
-      }
-    }
-  `);
+  const { allSanityTopping, allSanityPizza } = useStaticQuery(query);
 
   return (
     <ToppingsFilterWrapper>
@@ -89,6 +71,26 @@ const ToppingsFilter = () => {
   );
 };
 
-ToppingsFilter.propTypes = {};
+ToppingsFilter.propTypes = { pizzas: PropTypes.array };
 
 export default ToppingsFilter;
+
+const query = graphql`
+  query {
+    allSanityTopping {
+      nodes {
+        id
+        name
+        vegetarian
+      }
+    }
+    allSanityPizza {
+      nodes {
+        toppings {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
