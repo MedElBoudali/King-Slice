@@ -57,9 +57,9 @@ exports.handler = async (event, context) => {
   let body = {};
 
   try {
-    body = JSON.parse(event.body);
+    body = JSON.parse(event.body).payload;
   } catch (e) {
-    body = querystring.parse(event.body);
+    body = querystring.parse(event.body).payload;
   }
 
   // Check if they have filled out the honeypot
