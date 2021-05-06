@@ -14,9 +14,6 @@ const Pizzas = ({ data: { allSanityPizza }, pageContext }) => {
             ? `Pizzas with ${pageContext.topping}`
             : "Pizza Menu"
         }
-        location={`${process.env.GATSBY_GRAPHQL_BASE}/${
-          pageContext.topping ? "topping" : "pizzas"
-        }`}
       />
       <ToppingsFilter />
       <PizzaList pizzas={pizzas} />
