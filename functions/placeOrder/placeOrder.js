@@ -43,6 +43,7 @@ const transporter = nodemailer.createTransport({
 const wait = (ms = 0) => new Promise(res => setTimeout(res, ms));
 
 exports.handler = async (event, context) => {
+  const body = JSON.parse(event.body);
   // Check if they have filled out the honeypot
   if (body.pancakeSyrup) {
     return {
@@ -53,7 +54,6 @@ exports.handler = async (event, context) => {
     };
   }
 
-  const body = JSON.parse(event.body);
   const requiredFields = ["name", "email", "orders"];
 
   // inputs validator

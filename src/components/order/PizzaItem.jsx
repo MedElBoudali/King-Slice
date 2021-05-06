@@ -88,13 +88,16 @@ const PizzaItem = ({
 
 PizzaItem.propTypes = {
   id: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
   name: PropTypes.string.isRequired,
   image: PropTypes.object.isRequired,
   price: PropTypes.number.isRequired,
   addOrRemoveOrder: PropTypes.func.isRequired,
   addOrRemove: PropTypes.string.isRequired,
-  pizzaSize: PropTypes.number,
+  pizzaSize: PropTypes.string,
 };
 
 export default PizzaItem;
