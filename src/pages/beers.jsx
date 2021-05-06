@@ -28,14 +28,13 @@ const Beers = ({
   data: {
     allBeer: { nodes: beers },
   },
-  location,
 }) => (
   <>
     <SEO
       title="Beers"
       image={beers[0].image}
       description="available beers."
-      location={location.href}
+      location={`${process.env.GATSBY_GRAPHQL_BASE}/beers`}
     />
     <h2 className="center">We have {beers.length} beers available</h2>
     <BeersWrapper>

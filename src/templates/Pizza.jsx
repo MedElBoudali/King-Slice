@@ -24,16 +24,16 @@ const SinglePizzaPage = ({
       name,
       image: { asset },
       toppings,
+      slug: { current },
     },
   },
-  location,
 }) => {
   return (
     <>
       <SEO
         title={name}
         image={`${asset.url}?h=292&w=560&&fit=crop`}
-        location={location.href}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/pizza/${current}`}
       />
       <SinglePizzaPageWrapper>
         <GatsbyImage image={getImage(asset)} alt={name} />
@@ -55,7 +55,6 @@ export default SinglePizzaPage;
 export const query = graphql`
   query($slug: String!) {
     sanityPizza(slug: { current: { eq: $slug } }) {
-      id
       name
       image {
         asset {
@@ -67,6 +66,9 @@ export const query = graphql`
         id
         name
         vegetarian
+      }
+      slug {
+        current
       }
     }
   }

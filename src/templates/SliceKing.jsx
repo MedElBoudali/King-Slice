@@ -36,18 +36,17 @@ const SliceKing = ({
       name,
       description,
       image: { asset },
+      slug: { current },
     },
   },
-  location,
 }) => {
-  console.log(location.href);
   return (
     <>
       <SEO
         title={name}
         description={description}
         image={`${asset.url}?h=292&w=560&&fit=crop`}
-        location={`https://kingslices.elboudali.com/sliceking/${name}`}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/sliceking/${current}`}
       />
       <SliceKingWrapper>
         <h2>
@@ -65,7 +64,6 @@ export default SliceKing;
 export const query = graphql`
   query($slug: String!) {
     sliceking: sanityPerson(slug: { current: { eq: $slug } }) {
-      id
       name
       description
       image {

@@ -3,11 +3,7 @@ import SEO from "../components/common/SEO";
 
 const NotFoundPage = ({ location }) => (
   <>
-    <SEO
-      title="Page Not Found"
-      description="Page Not Found."
-      location={location.href}
-    />
+    <SEO title="Page Not Found" description="Page Not Found." />
     <h1>Not Found Page</h1>
   </>
 );

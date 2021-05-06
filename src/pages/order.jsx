@@ -78,7 +78,7 @@ const Order = ({
       <SEO
         title="Order Pizza!"
         description="Order Pizza."
-        location={location.href}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/order`}
       />
       <OrderForm
         onSubmit={e => {

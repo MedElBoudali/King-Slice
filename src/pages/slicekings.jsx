@@ -65,7 +65,7 @@ const Slicekings = ({
       <SEO
         title={`Slice Kings · Page ${pageContext.currentPage || 1}`}
         description="All Slice Kings."
-        location={location.href}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/slicekings`}
       />
       <Pagination
         pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)}
