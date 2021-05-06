@@ -63,9 +63,11 @@ const Slicekings = ({
   return (
     <>
       <SEO
-        title={`Slice Kings · Page ${pageContext.currentPage || 1}`}
+        title={`Slice Kings · Page ${pageContext.currentPage ?? 1}`}
         description="All Slice Kings."
-        location={`${process.env.GATSBY_GRAPHQL_BASE}/slicekings`}
+        location={`${process.env.GATSBY_GRAPHQL_BASE}/slicekings/${
+          pageContext.currentPage ?? 1
+        }`}
       />
       <Pagination
         pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)}
