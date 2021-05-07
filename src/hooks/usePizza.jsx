@@ -21,14 +21,6 @@ const usePizza = ({ pizzas, values: { name, email, pancakeSyrup } }) => {
     setError("");
     setMessage("");
 
-    const body = JSON.stringify({
-      orders: await attachNamesAndPrices(orders, pizzas),
-      total: formatMoney(await calculateOrderTotal(orders, pizzas)),
-      name,
-      email,
-      pancakeSyrup,
-    });
-
     const res = await fetch(
       `${process.env.GATSBY_SERVERLESS_BASE}/place_order`,
       {
@@ -36,7 +28,13 @@ const usePizza = ({ pizzas, values: { name, email, pancakeSyrup } }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body,
+        body: JSON.stringify({
+          orders: attachNamesAndPrices(orders, pizzas),
+          total: formatMoney(calculateOrderTotal(orders, pizzas)),
+          name,
+          email,
+          pancakeSyrup,
+        }),
       }
     );
 

@@ -1,18 +1,18 @@
 const nodemailer = require("nodemailer");
 const querystring = require("querystring");
 
-// const headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   "Access-Control-Allow-Headers": "Content-Type",
-// };
-
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "Origin, X-Requested-With, Content-Type, Accept",
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Methods": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
 };
+
+// const headers = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Access-Control-Allow-Headers":
+//     "Origin, X-Requested-With, Content-Type, Accept",
+//   "Content-Type": "application/json",
+//   "Access-Control-Allow-Methods": "*",
+// };
 
 const generateOrderEmail = ({ orders, total }) => {
   return `
@@ -54,14 +54,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-exports.handler = async event => {
+exports.handler = async (event, callback) => {
   try {
-    // const origin = new URL(event.headers.origin);
-    // if (!origin.hostname === "kingslices.elboudali.com") {
-    //   throw new Error("Unacceptable request");
-    // }
-    const body = querystring.parse(event.body);
-    // const body = querystring.parse(event.body);
+    const origin = new URL(event.headers.origin);
+    if (!origin.hostname === "kingslices.elboudali.com") {
+      throw new Error("Unacceptable request");
+    }
+
+    const body = JSON.parse(event.body);
+
     // Check if they have filled out the honeypot
     if (body.pancakeSyrup) {
       throw new Error("Cya.");
@@ -86,20 +87,20 @@ exports.handler = async event => {
       html: generateOrderEmail({ orders: body.orders, total: body.total }),
     });
 
-    return {
+    return callback(null, {
       headers,
       statusCode: 200,
       body: JSON.stringify({
         message: "Success! Come on down for your pizzas.",
       }),
-    };
+    });
   } catch (error) {
-    return {
+    return callback(null, {
       headers,
       statusCode: 400,
       body: JSON.stringify({
         message: `Mail is not sent - Message: ${error.message}`,
       }),
-    };
+    });
   }
 };
