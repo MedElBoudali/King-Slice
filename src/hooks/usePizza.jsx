@@ -30,11 +30,11 @@ const usePizza = ({ pizzas, values: { name, email, pancakeSyrup } }) => {
     });
 
     const res = await fetch(
-      `${process.env.GATSBY_SERVERLESS_BASE}/placeOrder`,
+      `${process.env.GATSBY_SERVERLESS_BASE}/place_order`,
       {
         method: "POST",
         headers: {
-          "Content-Type": "appliction/json",
+          "Content-Type": "application/json",
         },
         body,
       }

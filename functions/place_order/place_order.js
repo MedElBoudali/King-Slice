@@ -60,7 +60,7 @@ exports.handler = async event => {
     // if (!origin.hostname === "kingslices.elboudali.com") {
     //   throw new Error("Unacceptable request");
     // }
-    const body = JSON.parse(event.body);
+    const body = querystring.parse(event.body);
     // const body = querystring.parse(event.body);
     // Check if they have filled out the honeypot
     if (body.pancakeSyrup) {
