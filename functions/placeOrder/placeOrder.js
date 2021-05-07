@@ -3,11 +3,16 @@ const querystring = require("querystring");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "Origin, X-Requested-With, Content-Type, Accept",
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Methods": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
 };
+
+// const headers = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Access-Control-Allow-Headers":
+//     "Origin, X-Requested-With, Content-Type, Accept",
+//   "Content-Type": "application/json",
+//   "Access-Control-Allow-Methods": "*",
+// };
 
 const generateOrderEmail = ({ orders, total }) => {
   return `
@@ -49,19 +54,30 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const wait = (ms = 0) => new Promise(res => setTimeout(res, ms));
+exports.handler = async event => {
+  const origin = new URL(event.headers.origin);
+  const acceptable = origin.hostname === "kingslices.elboudali.com";
 
-const requiredFields = ["name", "email", "orders"];
-
-exports.handler = async (event, context) => {
-  let body = {};
-
-  try {
-    body = JSON.parse(event.body).payload;
-  } catch (e) {
-    body = querystring.parse(event.body).payload;
+  if (!acceptable) {
+    return {
+      headers,
+      statusCode: 403,
+      body: JSON.stringify({ message: "Unacceptable request" }),
+    };
   }
 
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      headers,
+      statusCode: 200,
+      body: JSON.stringify({
+        message: `CORS ok.`,
+      }),
+    };
+  }
+
+  const body = querystring.parse(event.body);
+  console.log(body);
   // Check if they have filled out the honeypot
   if (body.pancakeSyrup) {
     return {
@@ -74,6 +90,7 @@ exports.handler = async (event, context) => {
   }
 
   // inputs validator
+  const requiredFields = ["name", "email", "orders"];
   for (const field of requiredFields) {
     if (!body[field]) {
       return {
@@ -97,7 +114,6 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // await wait(5000);
     await transporter.sendMail({
       from: "Slice Masters <slice@example.com>",
       to: `${body.name} <${body.email}>, orders@example.com`,
