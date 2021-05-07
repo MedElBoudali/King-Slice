@@ -1,37 +1,35 @@
 const nodemailer = require("nodemailer");
-const querystring = require("querystring");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-// const headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   "Access-Control-Allow-Headers":
-//     "Origin, X-Requested-With, Content-Type, Accept",
-//   "Content-Type": "application/json",
-//   "Access-Control-Allow-Methods": "*",
-// };
-
 const generateOrderEmail = ({ orders, total }) => {
   return `
   <div>
-    <h2>Your recent Order for ${total}</h2>
+    <h2>Your recent Order for ${total ?? "$0"}</h2>
     <p>Please start walking over, we will have your order ready in the next 20 mins.</p>
-    <ul style="list-style: none;">
+   ${
+     orders &&
+     orders.length &&
+     `<ul style="list-style: none;">
       ${orders
         .map(
-          ({ name, thumbnail, size, price }) => `
-          <li>
+          ({ name, thumbnail, size, price }) =>
+            name &&
+            thumbnail &&
+            size &&
+            price &&
+            `<li>
             <img style="height: 100px; width: 100px; object-fit: cover;" src="${thumbnail}" alt="${name}"/>
              ${name} - ${price} (${size})
-          </li>
-          `
+          </li>`
         )
         .join("")}
-    </ul>
-    <p>Your total is <strong>${total}</strong> due at pickup</p>
+    </ul>`
+   }
+    <p>Your total is <strong>${total ?? "$0"}</strong> due at pickup</p>
     <br/>
     <h3><strong>NB: </strong>This email used only for testing purposes.</h3>
   </div>`;
@@ -57,10 +55,10 @@ const responseFunction = (statusCode, message) => {
 };
 
 exports.handler = async event => {
-  // const origin = new URL(event.headers.origin);
-  // if (!origin.hostname === "kingslices.elboudali.com") {
-  //   return responseFunction(400, "Unacceptable request");
-  // }
+  const origin = new URL(event.headers.origin);
+  if (!origin.hostname === "kingslices.elboudali.com") {
+    return responseFunction(400, "Unacceptable request");
+  }
 
   const body = JSON.parse(event.body);
 
