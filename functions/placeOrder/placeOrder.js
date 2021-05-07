@@ -57,7 +57,7 @@ const transporter = nodemailer.createTransport({
 exports.handler = async event => {
   const origin = new URL(event.headers.origin);
   const acceptable = origin.hostname === "kingslices.elboudali.com";
-
+  console.log("origin: ", origin.hostname);
   if (!acceptable) {
     return {
       headers,
@@ -66,17 +66,7 @@ exports.handler = async event => {
     };
   }
 
-  if (event.httpMethod === "OPTIONS") {
-    return {
-      headers,
-      statusCode: 200,
-      body: JSON.stringify({
-        message: `CORS ok.`,
-      }),
-    };
-  }
-
-  const body = querystring.parse(event.body);
+  const body = JSON.parse(event.body);
   console.log(body);
   // Check if they have filled out the honeypot
   if (body.pancakeSyrup) {
