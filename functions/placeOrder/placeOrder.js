@@ -1,18 +1,18 @@
 const nodemailer = require("nodemailer");
 const querystring = require("querystring");
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
-
 // const headers = {
 //   "Access-Control-Allow-Origin": "*",
-//   "Access-Control-Allow-Headers":
-//     "Origin, X-Requested-With, Content-Type, Accept",
-//   "Content-Type": "application/json",
-//   "Access-Control-Allow-Methods": "*",
+//   "Access-Control-Allow-Headers": "Content-Type",
 // };
+
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "Origin, X-Requested-With, Content-Type, Accept",
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Methods": "*",
+};
 
 const generateOrderEmail = ({ orders, total }) => {
   return `
@@ -55,55 +55,31 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.handler = async event => {
-  const origin = new URL(event.headers.origin);
-  const acceptable = origin.hostname === "kingslices.elboudali.com";
-  console.log(origin.hostname);
-  if (!acceptable) {
-    return {
-      headers,
-      statusCode: 403,
-      body: JSON.stringify({ message: "Unacceptable request" }),
-    };
-  }
-
-  const body = querystring.parse(event.body);
-  console.log(body.name);
-  // Check if they have filled out the honeypot
-  if (body.pancakeSyrup) {
-    return {
-      headers,
-      statusCode: 400,
-      body: JSON.stringify({
-        message: `cya.`,
-      }),
-    };
-  }
-
-  // inputs validator
-  const requiredFields = ["name", "email", "orders"];
-  for (const field of requiredFields) {
-    if (!body[field]) {
-      return {
-        headers,
-        statusCode: 400,
-        body: JSON.stringify({
-          message: `Oops! You are missing the ${field} field.`,
-        }),
-      };
-    }
-  }
-
-  if (!body.orders.length) {
-    return {
-      headers,
-      statusCode: 400,
-      body: JSON.stringify({
-        message: `Why would you order nothing?`,
-      }),
-    };
-  }
-
   try {
+    const origin = new URL(event.headers.origin);
+    const acceptable = origin.hostname === "kingslices.elboudali.com";
+    if (!acceptable) {
+      throw new Error("Unacceptable request");
+    }
+
+    const body = querystring.parse(event.body);
+    // Check if they have filled out the honeypot
+    if (body.pancakeSyrup) {
+      throw new Error("Cya.");
+    }
+
+    // inputs validator
+    const requiredFields = ["name", "email", "orders"];
+    for (const field of requiredFields) {
+      if (!body[field]) {
+        throw new Error(`Oops! You are missing the ${field} field.`);
+      }
+    }
+
+    if (!body.orders.length) {
+      throw new Error("Why would you order nothing?");
+    }
+
     await transporter.sendMail({
       from: "Slice Masters <slice@example.com>",
       to: `${body.name} <${body.email}>, orders@example.com`,
@@ -123,7 +99,7 @@ exports.handler = async event => {
       headers,
       statusCode: 400,
       body: JSON.stringify({
-        message: `Mail is not sent Error: ${error.message}`,
+        message: `Mail is not sent - Error: ${error.message}`,
       }),
     };
   }
