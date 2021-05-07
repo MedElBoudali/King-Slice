@@ -60,30 +60,30 @@ exports.handler = async event => {
     if (!origin.hostname === "kingslices.elboudali.com") {
       throw new Error("Unacceptable request");
     }
-
-    const { body } = querystring.parse(event.body);
+    const res = JSON.parse(event.body);
+    // const body = querystring.parse(event.body);
     // Check if they have filled out the honeypot
-    if (body.pancakeSyrup) {
+    if (res.pancakeSyrup) {
       throw new Error("Cya.");
     }
 
     // inputs validator
     const requiredFields = ["name", "email", "orders"];
     for (const field of requiredFields) {
-      if (!body[field]) {
+      if (!res[field]) {
         throw new Error(`Oops! You are missing the ${field} field.`);
       }
     }
 
-    if (!body.orders.length) {
+    if (!res.orders.length) {
       throw new Error("Why would you order nothing?");
     }
 
     await transporter.sendMail({
       from: "Slice Masters <slice@example.com>",
-      to: `${body.name} <${body.email}>, orders@example.com`,
+      to: `${res.name} <${res.email}>, orders@example.com`,
       subject: "New order!",
-      html: generateOrderEmail({ orders: body.orders, total: body.total }),
+      html: generateOrderEmail({ orders: res.orders, total: res.total }),
     });
 
     return {
