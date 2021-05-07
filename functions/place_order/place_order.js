@@ -55,10 +55,10 @@ const responseFunction = (statusCode, message) => {
 };
 
 exports.handler = async event => {
-  const origin = new URL(event.headers.origin);
-  if (!origin.hostname === "kingslices.elboudali.com") {
-    return responseFunction(400, "Unacceptable request");
-  }
+  // const origin = new URL(event.headers.origin);
+  // if (!origin.hostname === "kingslices.elboudali.com") {
+  //   return responseFunction(400, "Unacceptable request");
+  // }
 
   const body = JSON.parse(event.body);
 
