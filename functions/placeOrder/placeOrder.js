@@ -57,12 +57,11 @@ const transporter = nodemailer.createTransport({
 exports.handler = async event => {
   try {
     const origin = new URL(event.headers.origin);
-    const acceptable = origin.hostname === "kingslices.elboudali.com";
-    if (!acceptable) {
+    if (!origin.hostname === "kingslices.elboudali.com") {
       throw new Error("Unacceptable request");
     }
 
-    const body = querystring.parse(event.body);
+    const body = JSON.parse(event.body).payload;
     // Check if they have filled out the honeypot
     if (body.pancakeSyrup) {
       throw new Error("Cya.");
