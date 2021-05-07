@@ -19,12 +19,12 @@ const generateOrderEmail = ({ orders, total }) => {
   <div>
     <h2>Your recent Order for ${total}</h2>
     <p>Please start walking over, we will have your order ready in the next 20 mins.</p>
-    <ul>
+    <ul style="list-style: none;">
       ${orders
         .map(
           ({ name, thumbnail, size, price }) => `
           <li>
-            <img src="${thumbnail}" alt="${name}"/>
+            <img style="height: 100px; width: 100px; object-fit: cover;" src="${thumbnail}" alt="${name}"/>
              ${name} - ${price} (${size})
           </li>
           `
@@ -32,16 +32,8 @@ const generateOrderEmail = ({ orders, total }) => {
         .join("")}
     </ul>
     <p>Your total is <strong>${total}</strong> due at pickup</p>
-    <style>
-        ul {
-          list-style: none;
-        }
-        img{
-          height: 100px;
-          width: 100px;
-          object-fit: cover;
-        }
-    </style>
+    <br/>
+    <h3><strong>NB: </strong>This email used only for testing purposes.</h3>
   </div>`;
 };
 
@@ -54,53 +46,53 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-exports.handler = async (event, callback) => {
+const responseFunction = (statusCode, message) => {
+  return {
+    headers,
+    statusCode,
+    body: JSON.stringify({
+      message,
+    }),
+  };
+};
+
+exports.handler = async event => {
+  // const origin = new URL(event.headers.origin);
+  // if (!origin.hostname === "kingslices.elboudali.com") {
+  //   return responseFunction(400, "Unacceptable request");
+  // }
+
+  const body = JSON.parse(event.body);
+
+  // Check if they have filled out the honeypot
+  if (body.pancakeSyrup) {
+    return responseFunction(400, "Cya.");
+  }
+
+  // inputs validator
+  const requiredFields = ["name", "email", "orders"];
+  for (const field of requiredFields) {
+    if (!body[field]) {
+      return responseFunction(400, `Oops! You are missing the ${field} field.`);
+    }
+  }
+
+  if (!body.orders.length) {
+    return responseFunction(400, "Why would you order nothing?");
+  }
+
   try {
-    const origin = new URL(event.headers.origin);
-    if (!origin.hostname === "kingslices.elboudali.com") {
-      throw new Error("Unacceptable request");
-    }
-
-    const body = JSON.parse(event.body);
-
-    // Check if they have filled out the honeypot
-    if (body.pancakeSyrup) {
-      throw new Error("Cya.");
-    }
-
-    // inputs validator
-    const requiredFields = ["name", "email", "orders"];
-    for (const field of requiredFields) {
-      if (!body[field]) {
-        throw new Error(`Oops! You are missing the ${field} field.`);
-      }
-    }
-
-    if (!body.orders.length) {
-      throw new Error("Why would you order nothing?");
-    }
-
     await transporter.sendMail({
-      from: "Slice Masters <slice@example.com>",
-      to: `${body.name} <${body.email}>, orders@example.com`,
-      subject: "New order!",
+      from: "King Slices <contact@elboudali.com>",
+      to: `${body.name} <${body.email}>`,
+      subject: "Your new order!",
       html: generateOrderEmail({ orders: body.orders, total: body.total }),
     });
-
-    return callback(null, {
-      headers,
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "Success! Come on down for your pizzas.",
-      }),
-    });
+    return responseFunction(200, "Success! Come on down for your pizzas.");
   } catch (error) {
-    return callback(null, {
-      headers,
-      statusCode: 400,
-      body: JSON.stringify({
-        message: `Mail is not sent - Message: ${error.message}`,
-      }),
-    });
+    return responseFunction(
+      400,
+      `Mail is not sent - Message: ${error.message}`
+    );
   }
 };
