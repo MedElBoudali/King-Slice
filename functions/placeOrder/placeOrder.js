@@ -61,7 +61,7 @@ exports.handler = async event => {
       throw new Error("Unacceptable request");
     }
 
-    const body = JSON.parse(event.body).payload;
+    const body = querystring.parse(event.body).payload;
     // Check if they have filled out the honeypot
     if (body.pancakeSyrup) {
       throw new Error("Cya.");
