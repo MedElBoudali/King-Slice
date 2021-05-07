@@ -1,23 +1,14 @@
 const nodemailer = require("nodemailer");
-const querystring = require("querystring");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-// const headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   "Access-Control-Allow-Headers":
-//     "Origin, X-Requested-With, Content-Type, Accept",
-//   "Content-Type": "application/json",
-//   "Access-Control-Allow-Methods": "*",
-// };
-
 const generateOrderEmail = ({ orders, total }) => {
   return `
   <div>
-    <h2>Your recent Order for ${total ?? "$0"}</h2>
+    <h2>Your recent Order for ${total ? total : "$0"}</h2>
     <p>Please start walking over, we will have your order ready in the next 20 mins.</p>
    ${
      orders &&
@@ -38,7 +29,7 @@ const generateOrderEmail = ({ orders, total }) => {
         .join("")}
     </ul>`
    }
-    <p>Your total is <strong>${total ?? "$0"}</strong> due at pickup</p>
+    <p>Your total is <strong>${total ? total : "$0"}</strong> due at pickup</p>
     <br/>
     <h3><strong>NB: </strong>This email used only for testing purposes.</h3>
   </div>`;
@@ -69,7 +60,7 @@ exports.handler = async event => {
   //   return responseFunction(400, "Unacceptable request");
   // }
 
-  const body = querystring.parse(event.body);
+  const body = JSON.parse(event.body);
 
   // Check if they have filled out the honeypot
   if (body.pancakeSyrup) {
