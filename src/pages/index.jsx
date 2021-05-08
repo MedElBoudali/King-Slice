@@ -6,9 +6,13 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const HomeWrapper = styled.div`
+  --columns: 2;
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(2, minmax(auto, 1fr));
+  grid-template-columns: repeat(var(--columns), minmax(auto, 1fr));
+  @media (max-width: 800px) {
+    --columns: 1;
+  }
 `;
 
 const ItemComponentWrapper = styled.div`

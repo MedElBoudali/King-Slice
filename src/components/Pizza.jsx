@@ -8,7 +8,7 @@ const PizzaWrapper = styled.div`
   display: grid;
   /* Take style from PizzaListWrapper not from PizzaWrapper */
   @supports not (grid-template-rows: subgrid) {
-    --rows: auto auto 400px;
+    --rows: auto auto 300px;
   }
   grid-template-rows: var(--rows, subgrid);
   grid-row: span 3;

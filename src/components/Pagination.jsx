@@ -15,25 +15,35 @@ const PaginationWrapper = styled.div`
     align-items: center;
     margin: 0 auto;
     gap: 1rem;
-    a {
-      padding: 0 1rem;
-      border-radius: 5px;
-      transform: rotate(-10deg);
-
-      &[aria-current="page"] {
-        background-color: var(--black);
-        color: var(--yellow);
-      }
-      &:hover:not([aria-current="page"]) {
-        transform: scale(1.3) rotate(10deg);
-        background-color: var(--yellow);
-        transition: scale rotate 1.3s;
-      }
-    }
   }
-  a[disabled] {
+`;
+
+const PaginationLink = styled(Link)`
+  padding: 0 1rem;
+  border-radius: 5px;
+  transform: rotate(-10deg);
+
+  &[aria-current="page"] {
+    background-color: var(--black);
+    color: var(--yellow);
+  }
+
+  &:hover:not([aria-current="page"]) {
+    transform: scale(1.3) rotate(10deg);
+    background-color: var(--yellow);
+    transition: scale rotate 1.3s;
+  }
+
+  &[disabled] {
     pointer-events: none;
     color: var(--grey);
+  }
+
+  @media (max-width: 800px) {
+    .word {
+      display: none !important;
+    }
+    font-size: 1.4rem;
   }
 `;
 
@@ -46,19 +56,27 @@ const Pagination = ({ pageSize, totalCount, currentPage, base }) => {
 
   return (
     <PaginationWrapper>
-      <Link disabled={!hasPrevPage} to={`${base}/${prevPage}/`}>
-        ◀︎ Prev
-      </Link>
+      <PaginationLink
+        title="Prev Page"
+        disabled={!hasPrevPage}
+        to={`${base}/${prevPage}/`}
+      >
+        ◀︎ <span className="word">Prev</span>
+      </PaginationLink>
       <div>
         {Array.from({ length: totalPages }).map((_, i) => (
-          <Link to={`${base}${i > 0 ? `/${i + 1}` : ""}/`} key={i}>
+          <PaginationLink to={`${base}${i > 0 ? `/${i + 1}` : ""}/`} key={i}>
             {i + 1}
-          </Link>
+          </PaginationLink>
         ))}
       </div>
-      <Link disabled={!hasNextPage} to={`${base}/${nextPage}/`}>
-        Next ▶︎
-      </Link>
+      <PaginationLink
+        title="Next Page"
+        disabled={!hasNextPage}
+        to={`${base}/${nextPage}/`}
+      >
+        <span className="word">Next</span> ▶︎
+      </PaginationLink>
     </PaginationWrapper>
   );
 };
