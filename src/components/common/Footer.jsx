@@ -8,7 +8,7 @@ const FooterWrapper = styled.footer`
 
 const Footer = () => (
   <FooterWrapper>
-    <p>&copy; King Slice {new Date().getFullYear()}</p>
+    <p>&copy; King Slices {new Date().getFullYear()}</p>
   </FooterWrapper>
 );
 

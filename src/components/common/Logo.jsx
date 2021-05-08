@@ -107,7 +107,7 @@ const Logo = () => {
             <NLetter>n</NLetter>
             <GLetter>g</GLetter>
           </LettersWrapper>
-          <Slice>slice</Slice>
+          <Slice>slices</Slice>
         </h1>
       </div>
     </LogoStyles>
